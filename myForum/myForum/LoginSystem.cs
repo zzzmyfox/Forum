@@ -59,7 +59,6 @@ namespace myForum
 
             };
 
-
             ////Create login button
             Button loginButton = new Button
             {
