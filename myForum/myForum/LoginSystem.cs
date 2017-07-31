@@ -11,6 +11,10 @@ namespace myForum
 
         public LoginSystem()
         {
+
+            Title = "Login";
+
+
             //Create Label for the login page
 			Label loginLabel = new Label
 			{
@@ -96,13 +100,15 @@ namespace myForum
         }
 
         //Check login
-        async void loggedIn(object sender, EventArgs e) {
+        async void loggedIn(object sender, EventArgs e) 
+        {
            
-            await Navigation.PushModalAsync(new NavigationPage(new ForumSystem(){Title = "Forum"}));
+            await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
         }
 
 		//register
-        async void register(object sender, EventArgs e){
+        async void register(object sender, EventArgs e)
+        {
             
             await Navigation.PushAsync(new RegisterSystem());
 

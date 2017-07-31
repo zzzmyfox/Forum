@@ -11,6 +11,8 @@ namespace myForum
 
         public RegisterSystem()
         {
+            Title = "Register";
+
             Label label = new Label
             {
                 Text = "Register",
@@ -71,6 +73,8 @@ namespace myForum
 				HorizontalOptions = LayoutOptions.FillAndExpand
 			};
 
+            registerButton.Clicked += registerFunction;
+
 
 			Content = new StackLayout
             {
@@ -78,6 +82,11 @@ namespace myForum
 				Spacing = 30,
                 Children = {label, container,registerButton}
             };
+        }
+
+        async void registerFunction (object sender, System.EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
         }
     }
 }

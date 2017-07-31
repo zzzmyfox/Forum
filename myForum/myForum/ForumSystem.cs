@@ -8,6 +8,7 @@ namespace myForum
     {
         public ForumSystem()
         {
+            Title = "Do you have any questions?";
 
             ToolbarItem toolbarItem = new ToolbarItem
             {
@@ -23,16 +24,31 @@ namespace myForum
 				Placeholder = "Search"
 			};
 
-          
+            ListView listView = new ListView
+            {
+
+            };
+
+            ScrollView scrollView = new ScrollView
+            {
+
+                Content = new StackLayout
+                {
+                    Children = {searchBar, listView}
+                }
+
+
+            };
+
             //Add View to forum page
             Content = new StackLayout
             {
-                Children = {searchBar}
+                Children = {scrollView}
             };
         }
         async void showLogin(object sender, System.EventArgs e)
 		{
-            await Navigation.PushAsync(new LoginSystem(){Title ="Login"});
+            await Navigation.PushAsync(new LoginSystem());
 		}
     }
 }

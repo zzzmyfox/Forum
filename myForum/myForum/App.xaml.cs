@@ -8,7 +8,7 @@ namespace myForum
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ForumSystem(){Title = "Do you have any questions?"});
+            MainPage = new NavigationPage(new ForumSystem());
 
         }
 
