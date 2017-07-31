@@ -11,7 +11,7 @@ namespace myForum
 
         public LoginSystem()
         {
-
+            //Set navigation bar title
             Title = "Login";
 
 
@@ -102,19 +102,59 @@ namespace myForum
         //Check login
         async void loggedIn(object sender, EventArgs e) 
         {
-           
-            await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
+
+			//Get username and password from entry
+			var user = new User
+			{
+				username = usernameEntry.Text,
+				password = passwordEntry.Text
+			};
+
+
+            //Setup the checkuser 
+            var isValid = CheckUser(user);
+
+            if(isValid)
+            {
+                //If login success
+                await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
+            }
+            else
+            {
+                //Show Alert if the username or password not correct
+                await DisplayAlert("Error", "Your username or password is not correct.", "Ok");
+            }
         }
 
 		//register
         async void register(object sender, EventArgs e)
         {
-            
+            //register page   
             await Navigation.PushAsync(new RegisterSystem());
 
         }
 
+		//Check username and password
+		bool CheckUser(User user)
+		{
+            
+			return user.username == UserData.username && user.password == UserData.password;
+		}
 
+	}
+
+    // Setup the user 
+	internal class User
+	{
+		public string username { get; set; }
+		public string password { get; set; }
+	}
+
+    // Username and password info
+	internal class UserData
+	{
+        public static string username = "test";
+		public static string password = "test";
 	}
 }
 
