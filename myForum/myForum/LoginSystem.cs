@@ -11,7 +11,6 @@ namespace myForum
 
         public LoginSystem()
         {
-            
             //Create Label for the login page
 			Label loginLabel = new Label
 			{
@@ -74,7 +73,7 @@ namespace myForum
             loginButton.Clicked += loggedIn;
 
 
-			////Create login button
+			//Create login button
 			Button registerButton = new Button
 			{
 				Text = "Need an account?",
@@ -83,6 +82,8 @@ namespace myForum
 				FontAttributes = FontAttributes.Bold,
 				HorizontalOptions = LayoutOptions.FillAndExpand
 			};
+
+            registerButton.Clicked += register;
 
             //Append all view to the login page
             Content = new StackLayout
@@ -95,10 +96,19 @@ namespace myForum
         }
 
         //Check login
-        async void loggedIn(object sender, System.EventArgs e) {
-
+        async void loggedIn(object sender, EventArgs e) {
+           
             await Navigation.PushModalAsync(new NavigationPage(new ForumSystem(){Title = "Forum"}));
         }
-    }
+
+		//register
+        async void register(object sender, EventArgs e){
+            
+            await Navigation.PushAsync(new RegisterSystem());
+
+        }
+
+
+	}
 }
 
