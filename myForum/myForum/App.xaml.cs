@@ -8,7 +8,8 @@ namespace myForum
         {
             InitializeComponent();
 
-            MainPage = new myForumPage();
+            MainPage = new LoginSystem();
+
         }
 
         protected override void OnStart()
