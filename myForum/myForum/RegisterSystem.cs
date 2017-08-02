@@ -96,7 +96,7 @@ namespace myForum
         //After sign up
         async void registerFunction (object sender, System.EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new TabbedPage() { Children = { new ForumSystem(), new ProfileSystem() } }));
+            await Navigation.PushModalAsync(new NaviationTab());
         }
     }
 }

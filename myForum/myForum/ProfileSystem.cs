@@ -45,7 +45,7 @@ namespace myForum
             {
                 App.IsUserLoggedIn = false;
                 await DisplayAlert("Logout", "Logout success!", "Ok");
-                await Navigation.PushModalAsync(new NavigationPage(new TabbedPage() { Children = { new ForumSystem(), new ProfileSystem() } }));
+                await Navigation.PushModalAsync(new NaviationTab());
             }
         }
     }

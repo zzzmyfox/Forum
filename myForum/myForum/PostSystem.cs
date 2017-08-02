@@ -59,7 +59,7 @@ namespace myForum
                 await Navigation.PushAsync(new LoginSystem());
             }else{
 				//Forum main page
-                await Navigation.PushModalAsync(new NavigationPage(new TabbedPage(){Children = {new ForumSystem(), new ProfileSystem()}}));
+                await Navigation.PushModalAsync(new NaviationTab());
             }
 		}
     }

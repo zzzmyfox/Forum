@@ -117,9 +117,7 @@ namespace myForum
             {
 				//If login success
 				App.IsUserLoggedIn = true; 
-                await Navigation.PushModalAsync(new NavigationPage(new TabbedPage(){
-                    Children = { new ForumSystem(), new ProfileSystem()}
-                }));
+                await Navigation.PushModalAsync(new NaviationTab());
             }
             else
             {

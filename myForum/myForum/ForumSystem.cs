@@ -42,18 +42,6 @@ namespace myForum
         
         public ForumSystem()
         {
-
-
-            //Set navigation bar title
-            NavigationPage navigationPage = new NavigationPage();
-            navigationPage.Title = "Do you have any questions?";
-
-        
-            //Set tabbed bar title
-            TabbedPage tabbedPage = new TabbedPage();
-            tabbedPage.Title = "Post";
-
-
             //Navigation bar item
             ToolbarItem newPost = new ToolbarItem
             {
