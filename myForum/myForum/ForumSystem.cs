@@ -60,7 +60,7 @@ namespace myForum
             //Create data for post
             var posts = new[]
             {
-                new {title="wooooooooo", time="1:45" ,image=""},
+                new {title="woooooooooooooooooooooooooooooooooooooo", time="1:45" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
