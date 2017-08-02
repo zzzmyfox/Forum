@@ -48,10 +48,6 @@
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/zh-HK/Xamarin.Forms.Platform.iOS.resources.dll
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/zh-Hans/Xamarin.Forms.Platform.iOS.resources.dll
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/zh-Hant/Xamarin.Forms.Platform.iOS.resources.dll
-/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/ibtool/_BundleResourceWithLogicalName.items
-/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/actool/_PartialAppManifest.items
-/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/actool/_BundleResourceWithLogicalName.items
-/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.csprojResolveAssemblyReference.cache
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.csproj.CoreCompileInputs.cache
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.exe
@@ -114,3 +110,7 @@
 /Users/Zhe/Downloads/Project1-Forum-master/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.csproj.CoreCompileInputs.cache
 /Users/Zhe/Downloads/Project1-Forum-master/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.exe
 /Users/Zhe/Downloads/Project1-Forum-master/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.pdb
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/ibtool/_BundleResourceWithLogicalName.items
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/actool/_PartialAppManifest.items
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/actool/_BundleResourceWithLogicalName.items
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/

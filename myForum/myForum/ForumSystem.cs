@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 using Xamarin.Forms;
 
@@ -9,6 +9,7 @@ namespace myForum
 
 		public class PostCell : ViewCell
 		{
+
 			public PostCell()
 			{
 				//instantiate each of our views
@@ -41,15 +42,26 @@ namespace myForum
         
         public ForumSystem()
         {
-            Title = "Do you have any questions?";
 
-            ToolbarItem toolbarItem = new ToolbarItem
+
+            //Set navigation bar title
+            NavigationPage navigationPage = new NavigationPage();
+            navigationPage.Title = "Do you have any questions?";
+
+        
+            //Set tabbed bar title
+            TabbedPage tabbedPage = new TabbedPage();
+            tabbedPage.Title = "Post";
+
+
+            //Navigation bar item
+            ToolbarItem newPost = new ToolbarItem
             {
-                Text = "Login"
+                Text = "New post"
             };
-            toolbarItem.Clicked += showLogin;
-            ToolbarItems.Add(toolbarItem);
 
+            ToolbarItems.Add(newPost);
+            newPost.Clicked += myPost;
 
 			//Create Search bar on forum page
 			SearchBar searchBar = new SearchBar
@@ -60,11 +72,11 @@ namespace myForum
             //Create data for post
             var posts = new[]
             {
-                new {title="woooooooooooooooooooooooooooooooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
+                new {title="Hello welcome!", time="9:45" ,image=""},
+                new {title="This is a forum!", time="9:47" ,image=""},
+                new {title="Why does Zelda is a good game?", time="10:15" ,image=""},
+                new {title="wooooooooo", time="11:05" ,image=""},
+                new {title="I am the developer", time="11:21" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
                 new {title="wooooooooo", time="1:45" ,image=""},
@@ -89,6 +101,10 @@ namespace myForum
                 RowHeight = 70
             };
 
+            listView.ItemSelected += ItemSelected;
+         
+
+            //Add scrollview makes suer the search bar can scroll up
             ScrollView scrollView = new ScrollView
             {
 
@@ -96,8 +112,6 @@ namespace myForum
                 {
                     Children = {searchBar, listView}
                 }
-
-
             };
 
             //Add View to forum page
@@ -106,10 +120,21 @@ namespace myForum
                 Children = {scrollView}
             };
         }
-        async void showLogin(object sender, System.EventArgs e)
+        //Login clicked
+        async void myPost(object sender, System.EventArgs e)
 		{
-            await Navigation.PushAsync(new LoginSystem());
+            await Navigation.PushAsync(new PostSystem());
 		}
+        //Listview  cell select
+        async void ItemSelected (object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+            {
+                return;
+            }
+            //Show page title
+            await Navigation.PushAsync(new Details(){Title= e.SelectedItem.ToString()});
+        }
     }
 }
 

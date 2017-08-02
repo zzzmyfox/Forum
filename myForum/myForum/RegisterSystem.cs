@@ -11,18 +11,24 @@ namespace myForum
 
         public RegisterSystem()
         {
-            Title = "Register";
+            //Set the navigation title
+            Title = "Sign up";
+			//Set background colour
+			BackgroundColor = Color.FromHex("#fce5a3");
 
+
+            //Label for sign up page
             Label label = new Label
             {
-                Text = "Register",
+                Text = "Sign up",
                 TextColor = Color.DarkGreen,
-				FontSize = 40,
+				FontSize = 35,
 				FontAttributes = FontAttributes.Bold,
 				HorizontalOptions = LayoutOptions.Center
 
 			};
 
+            //register page username text input
             usernameEntry = new Entry
             {
                 Placeholder = "Username",
@@ -30,14 +36,16 @@ namespace myForum
                 HeightRequest = 40
             };
 
-            passwordEntry = new Entry
+			//register page password text input
+			passwordEntry = new Entry
             {
                 Placeholder = "Password",
                 IsPassword = true,
 				HeightRequest = 40
             };
 
-            confirmEntry = new Entry
+			//register page password confirm text input
+			confirmEntry = new Entry
             {
                 Placeholder = "Confirm",
                 IsPassword = true,
@@ -45,9 +53,10 @@ namespace myForum
             };
 
 
+            //Text input container
             Frame container = new Frame
             {
-				BackgroundColor = Color.FromHex("#f1e1cf"),
+				BackgroundColor = Color.FromHex("#fcf0cd"),
 				HasShadow = false,
 
 				//Create view for container
@@ -65,7 +74,7 @@ namespace myForum
 			//Create login button
 			Button registerButton = new Button
 			{
-				Text = "Register",
+				Text = "Sign up",
 				TextColor = Color.White,
 				FontSize = 20,
 				FontAttributes = FontAttributes.Bold,
@@ -75,7 +84,7 @@ namespace myForum
 
             registerButton.Clicked += registerFunction;
 
-
+            //Add to view 
 			Content = new StackLayout
             {
 				Padding = 20,
@@ -84,9 +93,10 @@ namespace myForum
             };
         }
 
+        //After sign up
         async void registerFunction (object sender, System.EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
+            await Navigation.PushModalAsync(new NavigationPage(new TabbedPage() { Children = { new ForumSystem(), new ProfileSystem() } }));
         }
     }
 }

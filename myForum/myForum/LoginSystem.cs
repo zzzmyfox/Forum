@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 using Xamarin.Forms;
 
@@ -12,18 +12,29 @@ namespace myForum
         public LoginSystem()
         {
             //Set navigation bar title
-            Title = "Login";
+            Title = "Sign in";
+            //Set background colour
+            BackgroundColor = Color.FromHex("#fce5a3");
+
+
+            //Add item button in navigation bar
+			ToolbarItem toolbarItem = new ToolbarItem
+			{
+				Text = "Sign up"
+			};
+            toolbarItem.Clicked += register;
+            //Add button to navigation
+			ToolbarItems.Add(toolbarItem);
 
 
             //Create Label for the login page
 			Label loginLabel = new Label
 			{
-				Text = "Login",
+				Text = "Sign in",
                 TextColor = Color.DarkRed,
-				FontSize = 40,
+				FontSize = 35,
 				FontAttributes = FontAttributes.Bold,
 				HorizontalOptions = LayoutOptions.Center
-
 			};
 
             //Create text input to handle username
@@ -47,7 +58,7 @@ namespace myForum
             //Create container for text input
             Frame container = new Frame
             {
-                BackgroundColor = Color.FromHex("#f1e1cf"),
+                BackgroundColor = Color.FromHex("#fcf0cd"),
                 HasShadow = false,
 
                 //Create view for container
@@ -65,7 +76,7 @@ namespace myForum
             ////Create login button
             Button loginButton = new Button
             {
-                Text = "Login",
+                Text = "Sign in",
                 TextColor = Color.White,
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
@@ -77,24 +88,12 @@ namespace myForum
             loginButton.Clicked += loggedIn;
 
 
-			//Create login button
-			Button registerButton = new Button
-			{
-				Text = "Need an account?",
-                TextColor = Color.DarkBlue,
-				FontSize = 15,
-				FontAttributes = FontAttributes.Bold,
-				HorizontalOptions = LayoutOptions.FillAndExpand
-			};
-
-            registerButton.Clicked += register;
-
             //Append all view to the login page
             Content = new StackLayout
             {
                 Padding = 20,
                 Spacing = 30,
-                Children = {loginLabel, container, loginButton, registerButton}
+                Children = {loginLabel, container, loginButton}
             };
 
         }
@@ -116,8 +115,11 @@ namespace myForum
 
             if(isValid)
             {
-                //If login success
-                await Navigation.PushModalAsync(new NavigationPage(new ForumSystem()));
+				//If login success
+				App.IsUserLoggedIn = true; 
+                await Navigation.PushModalAsync(new NavigationPage(new TabbedPage(){
+                    Children = { new ForumSystem(), new ProfileSystem()}
+                }));
             }
             else
             {

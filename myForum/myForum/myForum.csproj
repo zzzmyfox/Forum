@@ -38,6 +38,10 @@
     <Compile Include="ForumSystem.cs" />
     <Compile Include="LoginSystem.cs" />
     <Compile Include="RegisterSystem.cs" />
+    <Compile Include="Details.cs" />
+    <Compile Include="ProfileSystem.cs" />
+    <Compile Include="PostSystem.cs" />
+    <Compile Include="TopicSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

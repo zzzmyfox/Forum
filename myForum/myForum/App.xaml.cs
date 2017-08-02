@@ -4,11 +4,17 @@ namespace myForum
 {
     public partial class App : Application
     {
+        //Log status 
+        internal static bool IsUserLoggedIn;
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ForumSystem());
+            MainPage = new NavigationPage(new TabbedPage(){
+
+                Children  ={new ForumSystem(), new ProfileSystem()}
+            });
 
         }
 
