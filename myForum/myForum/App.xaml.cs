@@ -11,12 +11,30 @@ namespace myForum
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new TabbedPage(){
+            TabbedPage tabbedPage = new TabbedPage();
 
-                Children  ={new ForumSystem(), new ProfileSystem()}
-            });
+			for (int i = 0; i != 4; ++i)
+			{
+				tabbedPage.Children.Add(CreateTabPage(i));
+			}
+
+            MainPage = tabbedPage;
 
         }
+
+		private Page CreateTabPage(int index)
+		{
+			var button = new Button { Text = "Push" };
+			var page = new ContentPage
+			{
+				Content = button,
+			};
+			NavigationPage.SetHasNavigationBar(page, false);
+			var navigationPage = new NavigationPage(page) { Title = index.ToString() };
+			button.Clicked += (s, e) => navigationPage.PushAsync(new ContentPage());
+
+			return navigationPage;
+		}
 
         protected override void OnStart()
         {

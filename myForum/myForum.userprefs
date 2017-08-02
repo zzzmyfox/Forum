@@ -1,16 +1,5 @@
 ﻿<Properties StartupConfiguration="{89EBD012-4ED6-4E53-9CCF-05951D6F5D67}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/TopicSystem.cs">
-    <Files>
-      <File FileName="myForum/LoginSystem.cs" Line="128" Column="14" />
-      <File FileName="myForum/ForumSystem.cs" Line="126" Column="54" />
-      <File FileName="myForum/ProfileSystem.cs" Line="14" Column="13" />
-      <File FileName="myForum/PostSystem.cs" Line="59" Column="62" />
-      <File FileName="myForum/App.xaml" Line="7" Column="1" />
-      <File FileName="myForum/App.xaml.cs" Line="12" Column="35" />
-      <File FileName="myForum/RegisterSystem.cs" Line="104" Column="1" />
-      <File FileName="myForum/TopicSystem.cs" Line="9" Column="29" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

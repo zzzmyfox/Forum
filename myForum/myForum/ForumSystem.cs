@@ -131,9 +131,14 @@ namespace myForum
             if (e.SelectedItem == null)
             {
                 return;
+            }else{
+
+                var myTitle = e.SelectedItem.ToString();
+
+				//Show page title
+				await Navigation.PushAsync(new Details() { Title = myTitle });
             }
-            //Show page title
-            await Navigation.PushAsync(new Details(){Title= e.SelectedItem.ToString()});
+
         }
     }
 }

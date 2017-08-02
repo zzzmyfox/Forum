@@ -8,6 +8,7 @@ namespace myForum
     {
         public Details()
         {
+            
             Content = new StackLayout
             {
                 Children = {
