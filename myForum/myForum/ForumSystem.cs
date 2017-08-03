@@ -19,7 +19,7 @@ namespace myForum
 			}
 
 			public string PostTitle { private set; get; }
-			public string PostDetail { private set; get; }
+			public string PostDetail { private set; get;}
 			public string PostTime { private set; get; }
 
 		}
@@ -45,13 +45,12 @@ namespace myForum
 				//instantiate each of our views
 				StackLayout cellWrapper = new StackLayout();
 
-				//Set properties for desired design
+				//Set cell design
 				cellWrapper.BackgroundColor = Color.FromHex("#eee");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
 				detailLabel.TextColor = Color.FromHex("#fff");
 				time.TextColor = Color.FromHex("503026");
 
-              
                 //Costumer cell
 				StackLayout cells = new StackLayout
 				{

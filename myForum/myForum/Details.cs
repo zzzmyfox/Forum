@@ -6,14 +6,24 @@ namespace myForum
 {
     public class Details : ContentPage
     {
-        public Details(object details)
+        public Details(object detail)
         {
-            Title = details as string;
+            Title = detail as string;
+
+
+
+            Label label = new Label
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center,
+                Text ="Hello there!"
+
+            };
+
+
             Content = new StackLayout
             {
-                Children = {
-                    new Label { Text = "Hello ContentPage" }
-                }
+                Children ={label }
             };
         }
     }
