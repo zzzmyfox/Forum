@@ -8,7 +8,9 @@ namespace myForum
     {
         public PostSystem()
         {
+            //Set page title title
             Title = "New Post";
+            //Set background color
             BackgroundColor = Color.FromHex("#eee");
 
 			//Add item button in navigation bar

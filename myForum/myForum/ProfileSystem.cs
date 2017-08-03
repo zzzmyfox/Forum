@@ -14,9 +14,10 @@ namespace myForum
             //Button in navigation bar for sign in and sign out
             if (App.IsUserLoggedIn == false)
             {
+                //Background color
+                BackgroundColor = Color.FromHex("#fcf0cd");
 
-                BackgroundColor = Color.FromHex("#f3cefc");
-
+                // for User image
                 Button button = new Button
                 {
                     BorderRadius = 50,
@@ -27,7 +28,7 @@ namespace myForum
                     VerticalOptions = LayoutOptions.Start
                 };
 
-
+                //Name label for username
                 Label label = new Label
                 {
                     Text = "Username",
@@ -39,6 +40,7 @@ namespace myForum
                 };
 
 
+                // name and image frame
                 Frame container = new Frame
                 {
 					BackgroundColor = Color.FromHex("#daf1ee"),
@@ -68,9 +70,12 @@ namespace myForum
             }
             else
             {
+                //After login
+                //Backgound colour 
+				BackgroundColor = Color.FromHex("#fcf0cd");
 
-				BackgroundColor = Color.FromHex("#f3cefc");
 
+                //User profile image 
 				Button button = new Button
 				{
 					BorderRadius = 50,
@@ -81,7 +86,7 @@ namespace myForum
 					VerticalOptions = LayoutOptions.Start
 				};
 
-
+                //Username label
 				Label label = new Label
 				{
 					Text = "Test",
@@ -92,7 +97,7 @@ namespace myForum
 					FontAttributes = FontAttributes.Bold
 				};
 
-
+                // Username and image frame
 				Frame container = new Frame
 				{
 					BackgroundColor = Color.FromHex("#daf1ee"),
@@ -106,6 +111,8 @@ namespace myForum
 					}
 				};
 
+
+                //Add to view
 				Content = new StackLayout
 				{
 					Children = { container }

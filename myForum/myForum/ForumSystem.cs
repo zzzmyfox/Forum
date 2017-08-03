@@ -32,9 +32,11 @@ namespace myForum
 				// Create post title for cell
 				Label titleLabel = new Label();
 				titleLabel.SetBinding(Label.TextProperty, "PostTitle");
+
                 //Create post detail label for the cell
 				Label detailLabel = new Label();
 				detailLabel.SetBinding(Label.TextProperty, "PostDetail");
+
                 //Create time label for the cell
 				Label time = new Label();
 				StackLayout horizontal = new StackLayout();
@@ -42,14 +44,21 @@ namespace myForum
 				horizontal.Orientation = StackOrientation.Horizontal;
 				time.HorizontalOptions = LayoutOptions.EndAndExpand;
 
-				//instantiate each of our views
+				//the cell for each views
 				StackLayout cellWrapper = new StackLayout();
 
 				//Set cell design
-				cellWrapper.BackgroundColor = Color.FromHex("#eee");
+				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
-				detailLabel.TextColor = Color.FromHex("#fff");
+				detailLabel.TextColor = Color.FromHex("#75ebf9");
 				time.TextColor = Color.FromHex("503026");
+
+
+				//Create boxView
+				BoxView box = new BoxView
+				{
+					WidthRequest = 5
+				};
 
                 //Costumer cell
 				StackLayout cells = new StackLayout
@@ -69,6 +78,7 @@ namespace myForum
 
 				//add views to the view hierarchy
 				View = cellWrapper;
+                horizontal.Children.Add(box);
                 horizontal.Children.Add(cells);
                 horizontal.Children.Add(time);
                 cellWrapper.Children.Add(horizontal);

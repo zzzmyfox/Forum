@@ -14,7 +14,7 @@ namespace myForum
             //Set navigation bar title
             Title = "Sign in";
             //Set background colour
-            BackgroundColor = Color.FromHex("#fce5a3");
+            BackgroundColor = Color.FromHex("#fcf0cd");
 
 
             //Add item button in navigation bar

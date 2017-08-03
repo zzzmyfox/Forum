@@ -14,7 +14,7 @@ namespace myForum
             //Set the navigation title
             Title = "Sign up";
 			//Set background colour
-			BackgroundColor = Color.FromHex("#fce5a3");
+			BackgroundColor = Color.FromHex("#fcf0cd");
 
 
             //Label for sign up page
