@@ -117,7 +117,7 @@ namespace myForum
             {
 				//If login success
 				App.IsUserLoggedIn = true; 
-                await Navigation.PushModalAsync(new NaviationTab());
+                await Navigation.PushModalAsync(new NaviationTab()) ;
             }
             else
             {

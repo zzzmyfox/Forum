@@ -1,47 +1,85 @@
 ﻿﻿using System;
-
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace myForum
 {
     public class ForumSystem : ContentPage
     {
+        //Initialise listview
+        ListView listView;
+
+		class Post
+		{
+			public Post(string title, string detail, string time)
+			{
+				this.PostTitle = title;
+				this.PostDetail = detail;
+				this.PostTime = time;
+			}
+
+			public string PostTitle { private set; get; }
+			public string PostDetail { private set; get; }
+			public string PostTime { private set; get; }
+
+		}
 
 		public class PostCell : ViewCell
 		{
 
 			public PostCell()
 			{
-				//instantiate each of our views
-				var image = new Image();
-				StackLayout cellWrapper = new StackLayout();
-				StackLayout horizontalLayout = new StackLayout();
-				Label left = new Label();
-				Label right = new Label();
+				// Create post title for cell
+				Label titleLabel = new Label();
+				titleLabel.SetBinding(Label.TextProperty, "PostTitle");
+                //Create post detail label for the cell
+				Label detailLabel = new Label();
+				detailLabel.SetBinding(Label.TextProperty, "PostDetail");
+                //Create time label for the cell
+				Label time = new Label();
+				StackLayout horizontal = new StackLayout();
+				time.SetBinding(Label.TextProperty, "PostTime");
+				horizontal.Orientation = StackOrientation.Horizontal;
+				time.HorizontalOptions = LayoutOptions.EndAndExpand;
 
-				//set bindings
-				left.SetBinding(Label.TextProperty, "title");
-				right.SetBinding(Label.TextProperty, "time");
-				image.SetBinding(Image.SourceProperty, "image");
+				//instantiate each of our views
+				StackLayout cellWrapper = new StackLayout();
 
 				//Set properties for desired design
 				cellWrapper.BackgroundColor = Color.FromHex("#eee");
-				horizontalLayout.Orientation = StackOrientation.Horizontal;
-				right.HorizontalOptions = LayoutOptions.EndAndExpand;
-				left.TextColor = Color.FromHex("#f35e20");
-				right.TextColor = Color.FromHex("503026");
+				titleLabel.TextColor = Color.FromHex("#f35e20");
+				detailLabel.TextColor = Color.FromHex("#fff");
+				time.TextColor = Color.FromHex("503026");
+
+              
+                //Costumer cell
+				StackLayout cells = new StackLayout
+				{
+					Padding = new Thickness(0, 10),
+					Orientation = StackOrientation.Horizontal,
+					Children =
+								{
+									new StackLayout
+									{
+										VerticalOptions = LayoutOptions.Center,
+										Spacing = 5,
+										Children ={titleLabel,detailLabel}
+									}
+								}
+                };
 
 				//add views to the view hierarchy
-				horizontalLayout.Children.Add(image);
-				horizontalLayout.Children.Add(left);
-				horizontalLayout.Children.Add(right);
-				cellWrapper.Children.Add(horizontalLayout);
 				View = cellWrapper;
+                horizontal.Children.Add(cells);
+                horizontal.Children.Add(time);
+                cellWrapper.Children.Add(horizontal);
 			}
 		}
         
         public ForumSystem()
         {
+
+            Title = "Forum";
             //Navigation bar item
             ToolbarItem newPost = new ToolbarItem
             {
@@ -57,45 +95,48 @@ namespace myForum
 				Placeholder = "Search"
 			};
 
+        
             //Create data for post
-            var posts = new[]
+            List<Post> posts = new List<Post>
             {
-                new {title="Hello welcome!", time="9:45" ,image=""},
-                new {title="This is a forum!", time="9:47" ,image=""},
-                new {title="Why does Zelda is a good game?", time="10:15" ,image=""},
-                new {title="wooooooooo", time="11:05" ,image=""},
-                new {title="I am the developer", time="11:21" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""},
-                new {title="wooooooooo", time="1:45" ,image=""}
+				new Post("Hello there!", "wooooooooooo", "8:30"),
+				new Post("Hello there!", "wooooooooooo", "8:36"),
+				new Post("Hello there!", "wooooooooooo", "9:32"),
+				new Post("Hello there!", "wooooooooooo", "10:17"),
+				new Post("Hello there!", "wooooooooooo", "10:23"),
+				new Post("Hello there!", "wooooooooooo", "10:34"),
+				new Post("Hello there!", "wooooooooooo", "10:37"),
+				new Post("Hello there!", "wooooooooooo", "11:20"),
+				new Post("Hello there!", "wooooooooooo", "11:38"),
+				new Post("Hello there!", "wooooooooooo", "12:30"),
+				new Post("Hello there!", "wooooooooooo", "12:45"),
+				new Post("Hello there!", "wooooooooooo", "12:50"),
+				new Post("Hello there!", "wooooooooooo", "13:10"),
+				new Post("Hello there!", "wooooooooooo", "13:31"),
+				new Post("Hello there!", "wooooooooooo", "13:40"),
+				new Post("Hello there!", "wooooooooooo", "14:09"),
+				new Post("Hello there!", "wooooooooooo", "15:20"),
+				new Post("Hello there!", "wooooooooooo", "15:30"),
+				new Post("Hello there!", "wooooooooooo", "15:35"),
+				new Post("Hello there!", "wooooooooooo", "16:37"),
+				new Post("Hello there!", "wooooooooooo", "18:30"),
+				new Post("Hello there!", "wooooooooooo", "19:30"),
+				new Post("Hello there!", "wooooooooooo", "20:30")
             };
 
             //Create ListView
-            ListView listView = new ListView
+            listView = new ListView
             {
                 ItemsSource = posts,
                 ItemTemplate = new DataTemplate(typeof(PostCell)),
                 RowHeight = 70
             };
-
+            //ListView Cell selected
             listView.ItemSelected += ItemSelected;
          
-
             //Add scrollview makes suer the search bar can scroll up
             ScrollView scrollView = new ScrollView
             {
-
                 Content = new StackLayout
                 {
                     Children = {searchBar, listView}
@@ -119,14 +160,13 @@ namespace myForum
             if (e.SelectedItem == null)
             {
                 return;
-            }else{
-
-                var myTitle = e.SelectedItem.ToString();
-
-				//Show page title
-				await Navigation.PushAsync(new Details() { Title = myTitle });
             }
 
+             //Deselect row
+            listView.SelectedItem = null;
+
+			//Show page title
+            await Navigation.PushAsync(new Details(e.SelectedItem));
         }
     }
 }

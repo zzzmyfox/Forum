@@ -11,10 +11,10 @@ namespace myForum
         {
             InitializeComponent();
 
+            //Set up the main screen page
             MainPage = new NaviationTab();
 
         }
-
 
         protected override void OnStart()
         {

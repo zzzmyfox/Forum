@@ -6,9 +6,9 @@ namespace myForum
 {
     public class Details : ContentPage
     {
-        public Details()
+        public Details(object details)
         {
-            
+            Title = details as string;
             Content = new StackLayout
             {
                 Children = {
