@@ -9,6 +9,7 @@ namespace myForum
         //Initialise listview
         ListView listView;
 
+        //Post string
 		class Post
 		{
 			public Post(string title, string detail, string time)
@@ -24,6 +25,7 @@ namespace myForum
 
 		}
 
+        //View Cell customer
 		public class PostCell : ViewCell
 		{
 

@@ -88,7 +88,7 @@ namespace myForum
 			Content = new StackLayout
             {
 				Padding = 20,
-				Spacing = 30,
+				Spacing = 10,
                 Children = {label, container,registerButton}
             };
         }

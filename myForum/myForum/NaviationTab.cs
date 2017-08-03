@@ -11,8 +11,10 @@ namespace myForum
             //Set the navigation bar
             NavigationPage topic = new NavigationPage(new TopicSystem());
             NavigationPage profile = new NavigationPage(new ProfileSystem());
-			//navigationPage.Icon = "schedule.png";
-
+            //Set tab bar image
+            topic.Icon = "topic.png";
+            profile.Icon = "profile.png";
+		  
             //Set the navigation bar title
 			topic.Title = "Topics";
             profile.Title = "Profile";

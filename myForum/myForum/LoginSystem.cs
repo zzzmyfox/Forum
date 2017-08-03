@@ -92,7 +92,7 @@ namespace myForum
             Content = new StackLayout
             {
                 Padding = 20,
-                Spacing = 30,
+                Spacing = 20,
                 Children = {loginLabel, container, loginButton}
             };
 
