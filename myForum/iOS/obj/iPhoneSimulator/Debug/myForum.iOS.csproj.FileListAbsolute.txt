@@ -118,3 +118,5 @@
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/profile.png
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/topic.png
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/topic@2x.png
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.xml

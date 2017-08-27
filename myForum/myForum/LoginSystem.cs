@@ -1,6 +1,9 @@
 ﻿﻿using System;
 
 using Xamarin.Forms;
+using System.Net;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace myForum
 {
@@ -110,21 +113,31 @@ namespace myForum
 			};
 
 
+
+            string username = usernameEntry.Text;
+            string password = passwordEntry.Text;
+
             //Setup the checkuser 
             var isValid = CheckUser(user);
-
             if(isValid)
             {
 				//If login success
 				App.IsUserLoggedIn = true; 
                 await Navigation.PushModalAsync(new NaviationTab()) ;
-            }
+			}
             else
             {
                 //Show Alert if the username or password not correct
-                await DisplayAlert("Error", "Your username or password is not correct.", "Ok");
+               
+				//User data = User.CreateJson("{\"username\":\"zhewang\",\"password\":\"zhewang123\"}");
+               
+                User data =  User.CreateJson("{\"username\":\""+username+"\",\"password\":\""+password+"\"}");
+
+                await DisplayAlert("Error", data.ToJsonString() ,"Ok" );
+                data.CreateUser();
             }
         }
+
 
 		//register
         async void register(object sender, EventArgs e)
@@ -137,24 +150,51 @@ namespace myForum
 		//Check username and password
 		bool CheckUser(User user)
 		{
-            
-			return user.username == UserData.username && user.password == UserData.password;
+
+            //return user.username == UserData.username && user.password == UserData.password;
+            return false;
 		}
-
-	}
-
-    // Setup the user 
-	internal class User
-	{
-		public string username { get; set; }
-		public string password { get; set; }
 	}
 
     // Username and password info
-	internal class UserData
+	public class User
 	{
-        public static string username = "test";
-		public static string password = "test";
+		public static string HTTPServer = "http://introtoapps.com/datastore.php?appid=215197324";
+
+        public string username;
+		public string password;
+
+		public static User CreateJson(string json)
+		{
+			User data = JsonConvert.DeserializeObject<User>(json);
+			return data;
+		}
+
+
+		public string ToJsonString()
+		{
+			return JsonConvert.SerializeObject(this);
+
+		}
+		//Connect to the server
+		 public async void CreateUser()
+        {
+            try{
+				string jsonString = ToJsonString();
+				jsonString = WebUtility.UrlEncode(jsonString);
+
+				string action = HTTPServer + "&action=save&objectid=" + username + "&data=" + jsonString;
+				Uri uri = new Uri(action);
+				WebRequest request = WebRequest.Create(uri);
+				request.Method = "GET";
+  
+				WebResponse response = await request.GetResponseAsync();
+            }
+            catch(Exception exception)
+            {
+                Debug.WriteLine(exception);  
+            }
+		}
 	}
 }
 
