@@ -71,15 +71,6 @@ namespace myForum
             };
 
 
-           
-
-         
-
-
-
-
-
-
 			//Create login button
 			Button registerButton = new Button
 			{
@@ -105,25 +96,42 @@ namespace myForum
         //After sign up
         async void registerFunction (object sender, System.EventArgs e)
         {
+			string username = usernameEntry.Text;
+			string password = passwordEntry.Text;
+			string confirm = confirmEntry.Text;
+            string empty = null;
 
-			var user = usernameEntry.Text;
-			var pass = passwordEntry.Text;
-			var confirm = confirmEntry.Text;
+            if(username == empty || password == empty || confirm == empty){
+                
+				if (username == empty)
+				{
+					await DisplayAlert("Error", "Username must be entered!", "Ok");
+                }else{
+                    
+					if (password == empty)
+					{
+						await DisplayAlert("Error", "Password must be entered!", "Ok");
+                    }else{
 
-			if (pass == confirm)
-			{
-
-				await Navigation.PushModalAsync(new NaviationTab());
-
-			}
-			else
-			{
-
-			   await DisplayAlert("Error", "Password must be matched!", "Ok");
-
-			}
-
-          
+						if (confirm == empty)
+						{
+							await DisplayAlert("Error", "Password must be confirmed!", "Ok");
+						}
+                    }
+                }
+            }else{
+                
+				if (password == confirm)
+				{
+					User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
+					await Navigation.PushModalAsync(new NaviationTab());
+					data.CreateUser();
+				}
+				else
+				{
+					await DisplayAlert("Error", "Password must be matched!", "Ok");
+				}
+            }
         }
     }
 }

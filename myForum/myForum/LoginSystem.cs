@@ -1,9 +1,7 @@
 ﻿﻿using System;
 
 using Xamarin.Forms;
-using System.Net;
-using Newtonsoft.Json;
-using System.Diagnostics;
+
 
 namespace myForum
 {
@@ -104,40 +102,78 @@ namespace myForum
         //Check login
         async void loggedIn(object sender, EventArgs e) 
         {
-
-			//Get username and password from entry
-			var user = new User
-			{
-				username = usernameEntry.Text,
-				password = passwordEntry.Text
-			};
-
-
-
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
 
-            //Setup the checkuser 
-            var isValid = CheckUser(user);
-            if(isValid)
-            {
-				//If login success
-				App.IsUserLoggedIn = true; 
-                await Navigation.PushModalAsync(new NaviationTab()) ;
+
+			User acc = await User.LoadUser(username);
+            string user = acc.username;
+			string pass = acc.password;
+            string empty = null;
+
+
+
+			var isValid = CheckUser();
+
+
+
+
+
+
+            if (username == empty){
+
+                if (user != username){
+
+
+                    await DisplayAlert("Error", "error", "Ok");
+
+                }
+
+				if (pass == password)
+				{
+
+					//If login success
+					App.IsUserLoggedIn = true;
+					await DisplayAlert("Logged in", "Username:" + acc.username + " ,Password:" + acc.password, "Ok");
+
+				}
+				else
+				{
+
+
+					await DisplayAlert("Error", "Your password is not correct, please try again.", "Ok");
+
+
+				}
+
 			}
-            else
-            {
-                //Show Alert if the username or password not correct
-               
-				//User data = User.CreateJson("{\"username\":\"zhewang\",\"password\":\"zhewang123\"}");
-               
-                User data =  User.CreateJson("{\"username\":\""+username+"\",\"password\":\""+password+"\"}");
 
-                await DisplayAlert("Error", data.ToJsonString() ,"Ok" );
-                data.CreateUser();
-            }
+           
+   //         //Setup the checkuser 
+   //         var isValid = CheckUser();
+   //         if(isValid)
+   //         {
+				
+
+
+			//	//User data = User.CreateJson("{\"username\":\"zhewang\",\"password\":\"zhewang123\"}");
+			//	//User data =  User.CreateJson("{\"username\":\""+username+"\",\"password\":\""+password+"\"}");
+			//	//await DisplayAlert("Message", "Pass:" + user.password, "Ok");
+
+
+
+
+
+
+   //             //await Navigation.PushModalAsync(new NaviationTab()) ;
+			//}
+            //else
+            //{
+            //    //Show Alert if the username or password not correct
+            //    await DisplayAlert("Erorr", "Pass:", "Ok");
+
+            //}
         }
-
 
 		//register
         async void register(object sender, EventArgs e)
@@ -148,52 +184,9 @@ namespace myForum
         }
 
 		//Check username and password
-		bool CheckUser(User user)
+	    bool CheckUser()
 		{
-
-            //return user.username == UserData.username && user.password == UserData.password;
-            return false;
-		}
-	}
-
-    // Username and password info
-	public class User
-	{
-		public static string HTTPServer = "http://introtoapps.com/datastore.php?appid=215197324";
-
-        public string username;
-		public string password;
-
-		public static User CreateJson(string json)
-		{
-			User data = JsonConvert.DeserializeObject<User>(json);
-			return data;
-		}
-
-
-		public string ToJsonString()
-		{
-			return JsonConvert.SerializeObject(this);
-
-		}
-		//Connect to the server
-		 public async void CreateUser()
-        {
-            try{
-				string jsonString = ToJsonString();
-				jsonString = WebUtility.UrlEncode(jsonString);
-
-				string action = HTTPServer + "&action=save&objectid=" + username + "&data=" + jsonString;
-				Uri uri = new Uri(action);
-				WebRequest request = WebRequest.Create(uri);
-				request.Method = "GET";
-  
-				WebResponse response = await request.GetResponseAsync();
-            }
-            catch(Exception exception)
-            {
-                Debug.WriteLine(exception);  
-            }
+            return true;
 		}
 	}
 }
