@@ -1,6 +1,7 @@
 ﻿﻿using System;
 
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 
 namespace myForum
@@ -74,7 +75,7 @@ namespace myForum
 
             };
 
-            ////Create login button
+            //Create login button
             Button loginButton = new Button
             {
                 Text = "Sign in",
@@ -86,7 +87,7 @@ namespace myForum
             };
 
             //When click login button
-            loginButton.Clicked += loggedIn;
+            loginButton.Clicked += LoggedIn;
 
 
             //Append all view to the login page
@@ -100,80 +101,60 @@ namespace myForum
         }
 
         //Check login
-        async void loggedIn(object sender, EventArgs e) 
+        async void LoggedIn(object sender, EventArgs e) 
         {
+            //Get input info
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
 
+            if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password)){
+                
+                await DisplayAlert("Login Error", "All input field must be entered!", "Ok");
+            }
+            else
+            {
+				CheckUser();
+			}
+        }
 
-			User acc = await User.LoadUser(username);
-            string user = acc.username;
-			string pass = acc.password;
-            string empty = null;
+		//Check username and password
+		async void CheckUser()
+		{
+			//Initialise the username and password.
+			string username = usernameEntry.Text;
+			string password = passwordEntry.Text;
 
+			//Retrieve username list from server
+			string userList = await User.CheckList();
 
-
-			var isValid = CheckUser();
-
-
-
-
-
-
-            if (username == empty){
-
-                if (user != username){
-
-
-                    await DisplayAlert("Error", "error", "Ok");
-
-                }
-
-				if (pass == password)
+			//Check the username in the database or not
+			if (userList.Contains(username))
+			{
+				//Send input info request to server
+				User data = await User.LoadUser(username);
+				//Retrieve data for the username and password from server
+				string user = data.username;
+				string pass = data.password;
+				//Check the password is correct or not.
+				if (pass != password)
 				{
-
-					//If login success
-					App.IsUserLoggedIn = true;
-					await DisplayAlert("Logged in", "Username:" + acc.username + " ,Password:" + acc.password, "Ok");
-
+					//Show Error message if the password is wrong.
+					await DisplayAlert("Login Error", "Password is not correct, please try again.", "Ok");
 				}
 				else
 				{
-
-
-					await DisplayAlert("Error", "Your password is not correct, please try again.", "Ok");
-
-
+					//Password is correct
+					await DisplayAlert("Logged in", "Username:" + user + ", Password:" + pass, "Ok");
+					//await Navigation.PushModalAsync(new NaviationTab());
 				}
+			}
+			else
+			{
+				//Show the error message when username is not correct.
+				await DisplayAlert("Login Error", "Username does not exist, please try again!", "Ok");
 
 			}
-
-           
-   //         //Setup the checkuser 
-   //         var isValid = CheckUser();
-   //         if(isValid)
-   //         {
-				
-
-
-			//	//User data = User.CreateJson("{\"username\":\"zhewang\",\"password\":\"zhewang123\"}");
-			//	//User data =  User.CreateJson("{\"username\":\""+username+"\",\"password\":\""+password+"\"}");
-			//	//await DisplayAlert("Message", "Pass:" + user.password, "Ok");
-
-
-
-
-
-
-   //             //await Navigation.PushModalAsync(new NaviationTab()) ;
-			//}
-            //else
-            //{
-            //    //Show Alert if the username or password not correct
-            //    await DisplayAlert("Erorr", "Pass:", "Ok");
-
-            //}
-        }
+		}
 
 		//register
         async void register(object sender, EventArgs e)
@@ -182,12 +163,6 @@ namespace myForum
             await Navigation.PushAsync(new RegisterSystem());
 
         }
-
-		//Check username and password
-	    bool CheckUser()
-		{
-            return true;
-		}
 	}
 }
 

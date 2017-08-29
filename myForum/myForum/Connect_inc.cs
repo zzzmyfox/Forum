@@ -12,7 +12,7 @@ namespace myForum
 	// Username and password info
 	public class User
 	{
-		public static string HTTPServer = "http://introtoapps.com/datastore.php?appid=215197324";
+        private static string HTTPServer = "http://introtoapps.com/datastore.php?appid=215197324";
 
 		public string username;
 		public string password;
@@ -23,7 +23,6 @@ namespace myForum
 			return data;
 		}
 
-
 		public string ToJsonString()
 		{
 			return JsonConvert.SerializeObject(this);
@@ -31,8 +30,8 @@ namespace myForum
 		}
 
         //Get response from server
-        public static async Task<string> ServerResponse(WebRequest request){
-
+        public static async Task<string> ServerResponse(WebRequest request)
+        {
             string result = "";
 
 			// Send the request to the server and wait for the response:
@@ -42,8 +41,10 @@ namespace myForum
 				using (Stream stream = response.GetResponseStream())
 				{
                     StreamReader objStream = new StreamReader(stream);
+
                     string sLine = "";
-                    while(sLine != null){
+                    while(sLine != null)
+                    {
                         sLine = objStream.ReadLine();
                         if (sLine != null)
                             result += sLine + "\n";
@@ -52,7 +53,32 @@ namespace myForum
 			}
             return result;
         }
-       
+
+
+
+        public static async Task<string> CheckList()
+        {
+            try
+            {
+                string result = "";
+			    string action = HTTPServer + "&action=list";
+			    Uri uri = new Uri(action);
+			    WebRequest request = WebRequest.Create(uri);
+			    request.Method = "GET";
+
+                result = await ServerResponse(request);
+
+
+                return result;
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e);
+
+                return null;
+            }
+        }
+
 		//Create user
 		public async void CreateUser()
 		{
@@ -68,21 +94,20 @@ namespace myForum
 
                 await ServerResponse(request);
 			}
-			catch (Exception exception)
+			catch (Exception e)
 			{
-				Debug.WriteLine(exception);
+				Debug.WriteLine(e);
 			}
 		}
 
         //Retrieve username and password
-        public static async Task<User> LoadUser(string username){
-
+        public static async Task<User> LoadUser(string username)
+        {
             try
             {
                 string action = HTTPServer + "&action=load&objectid=" + username;
                 Uri uri = new Uri(action);
                 WebRequest request = WebRequest.Create(uri);
-                request.ContentType = "application/json";
                 request.Method = "GET";
 
                  string result = await ServerResponse(request);
@@ -90,9 +115,9 @@ namespace myForum
                 return CreateJson(result);
 
             }
-			catch (Exception exception)
+			catch (Exception e)
 			{
-				Debug.WriteLine(exception);
+				Debug.WriteLine(e);
                 return null;
 			}
         }

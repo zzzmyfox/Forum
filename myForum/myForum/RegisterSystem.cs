@@ -94,43 +94,65 @@ namespace myForum
         }
 
         //After sign up
-        async void registerFunction (object sender, System.EventArgs e)
+        async void registerFunction(object sender, System.EventArgs e)
         {
-			string username = usernameEntry.Text;
-			string password = passwordEntry.Text;
-			string confirm = confirmEntry.Text;
+            string username = usernameEntry.Text;
+            string password = passwordEntry.Text;
+            string confirm = confirmEntry.Text;
             string empty = null;
 
-            if(username == empty || password == empty || confirm == empty){
-                
-				if (username == empty)
-				{
-					await DisplayAlert("Error", "Username must be entered!", "Ok");
-                }else{
-                    
-					if (password == empty)
-					{
-						await DisplayAlert("Error", "Password must be entered!", "Ok");
-                    }else{
 
-						if (confirm == empty)
-						{
-							await DisplayAlert("Error", "Password must be confirmed!", "Ok");
-						}
-                    }
-                }
-            }else{
-                
-				if (password == confirm)
+            //Retrieve username list from server
+            string userList = await User.CheckList();
+
+            if (userList.Contains(username))
+            {
+                await DisplayAlert("Error", "Username already exist!", "Ok");
+               
+            }
+            else
+            {
+
+				if (username == empty || password == empty || confirm == empty)
 				{
-					User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
-					await Navigation.PushModalAsync(new NaviationTab());
-					data.CreateUser();
+
+					if (username == empty)
+					{
+						await DisplayAlert("Error", "Username must be entered!", "Ok");
+					}
+					else
+					{
+
+						if (password == empty)
+						{
+							await DisplayAlert("Error", "Password must be entered!", "Ok");
+						}
+						else
+						{
+
+							if (confirm == empty)
+							{
+								await DisplayAlert("Error", "Password must be confirmed!", "Ok");
+							}
+						}
+					}
 				}
 				else
 				{
-					await DisplayAlert("Error", "Password must be matched!", "Ok");
+
+					if (password == confirm)
+					{
+						User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
+						await Navigation.PushModalAsync(new NaviationTab());
+						data.CreateUser();
+					}
+					else
+					{
+						await DisplayAlert("Error", "Password must be matched!", "Ok");
+					}
 				}
+
+
             }
         }
     }
