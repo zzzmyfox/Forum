@@ -31,6 +31,7 @@ namespace myForum
                 //Name label for username
                 Label label = new Label
                 {
+                    
                     Text = "Username",
                     TextColor = Color.FromHex("#ff9130"),
                     FontSize = 28,
@@ -38,7 +39,6 @@ namespace myForum
                     VerticalOptions = LayoutOptions.Center,
                     FontAttributes = FontAttributes.Bold
                 };
-
 
                 // name and image frame
                 Frame container = new Frame
@@ -63,7 +63,7 @@ namespace myForum
                  //item bar button
                 ToolbarItem signIn = new ToolbarItem
                 {
-                    Text = "Sign in"
+                    Text = "Login"
                 };
                 ToolbarItems.Add(signIn);
                 signIn.Clicked += showLogin;
@@ -73,7 +73,6 @@ namespace myForum
                 //After login
                 //Backgound colour 
 				BackgroundColor = Color.FromHex("#fcf0cd");
-
 
                 //User profile image 
 				Button button = new Button
@@ -89,7 +88,7 @@ namespace myForum
                 //Username label
 				Label label = new Label
 				{
-					Text = "Test",
+					Text = "Hello",
 					TextColor = Color.FromHex("#ff9130"),
 					FontSize = 28,
 					HorizontalOptions = LayoutOptions.Center,
@@ -118,21 +117,19 @@ namespace myForum
 					Children = { container }
 				};
 
-
-
 				// After sign in
-				ToolbarItem signOut = new ToolbarItem
+				ToolbarItem logOut = new ToolbarItem
                 {
-                    Text = "Sign out"
+                    Text = "Logout"
                 };
-                ToolbarItems.Add(signOut);
-                signOut.Clicked += logout;
+                ToolbarItems.Add(logOut);
+                logOut.Clicked += logout;
             }
 
             //Login
             async void showLogin(object sender, System.EventArgs e)
             {
-                await Navigation.PushAsync(new LoginSystem());
+                await Navigation.PushModalAsync(new NavigationPage(new LoginSystem()));
             }
 
             //Logout

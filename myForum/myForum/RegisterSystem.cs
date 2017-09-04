@@ -12,15 +12,24 @@ namespace myForum
         public RegisterSystem()
         {
             //Set the navigation title
-            Title = "Sign up";
+            Title = "Register";
 			//Set background colour
 			BackgroundColor = Color.FromHex("#fcf0cd");
+
+			//Add item button in navigation bar
+			ToolbarItem toolbarItem = new ToolbarItem
+			{
+				Text = "Cancel"
+			};
+			toolbarItem.Clicked += Cancel;
+			//Add button to navigation
+			ToolbarItems.Add(toolbarItem);
 
 
             //Label for sign up page
             Label label = new Label
             {
-                Text = "Sign up",
+                Text = "Register",
                 TextColor = Color.DarkGreen,
 				FontSize = 35,
 				FontAttributes = FontAttributes.Bold,
@@ -74,7 +83,7 @@ namespace myForum
 			//Create login button
 			Button registerButton = new Button
 			{
-				Text = "Sign up",
+				Text = "Register",
 				TextColor = Color.White,
 				FontSize = 20,
 				FontAttributes = FontAttributes.Bold,
@@ -93,68 +102,66 @@ namespace myForum
             };
         }
 
-        //After sign up
+        //register account
         async void registerFunction(object sender, System.EventArgs e)
         {
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
             string confirm = confirmEntry.Text;
-            string empty = null;
 
-
-            //Retrieve username list from server
-            string userList = await User.CheckList();
-
-            if (userList.Contains(username))
+            if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirm))
             {
-                await DisplayAlert("Error", "Username already exist!", "Ok");
-               
+                await DisplayAlert("Register error", "All input field must be entered!", "Ok");
             }
             else
             {
+                CheckUser();
+            }
+        }
 
-				if (username == empty || password == empty || confirm == empty)
+		//Check username and password match
+		async void CheckUser()
+		{
+			//Initialise the username and password.
+			string username = usernameEntry.Text;
+			string password = passwordEntry.Text;
+			string confirm = confirmEntry.Text;
+
+			//Retrieve username list from server
+			string userList = await User.GetList();
+
+			//Check the username in the database or not
+            if (username.Contains(userList))
+			{
+				//Show the error message when username is not correct.
+				await DisplayAlert("Register error", "Username is already exist, please try again!", "Ok");
+			}
+			else
+			{
+                //check the password and confirm is match or not.
+				if (password != confirm)
 				{
-
-					if (username == empty)
-					{
-						await DisplayAlert("Error", "Username must be entered!", "Ok");
-					}
-					else
-					{
-
-						if (password == empty)
-						{
-							await DisplayAlert("Error", "Password must be entered!", "Ok");
-						}
-						else
-						{
-
-							if (confirm == empty)
-							{
-								await DisplayAlert("Error", "Password must be confirmed!", "Ok");
-							}
-						}
-					}
+                    //If not match show error message to user
+					await DisplayAlert("Register error", "Password must be matched!", "Ok");
 				}
 				else
 				{
+                    //The username and password encode to Json 
+					User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
+                    //Create user by Json
+                    data.CreateUser();
 
-					if (password == confirm)
-					{
-						User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
-						await Navigation.PushModalAsync(new NaviationTab());
-						data.CreateUser();
-					}
-					else
-					{
-						await DisplayAlert("Error", "Password must be matched!", "Ok");
-					}
+					await Navigation.PushModalAsync(new NaviationTab());
 				}
+			}
+		}
 
+		async void Cancel(object sender, EventArgs e)
+		{
+            //Cancel the page
+            await Navigation.PopModalAsync();
+		}
 
-            }
-        }
-    }
+	}
 }
 

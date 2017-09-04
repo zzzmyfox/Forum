@@ -1,8 +1,7 @@
 ﻿﻿using System;
 
 using Xamarin.Forms;
-using System.Threading.Tasks;
-
+using System.Collections.Generic;
 
 namespace myForum
 {
@@ -14,30 +13,30 @@ namespace myForum
         public LoginSystem()
         {
             //Set navigation bar title
-            Title = "Sign in";
+            Title = "Login";
             //Set background colour
             BackgroundColor = Color.FromHex("#fcf0cd");
 
 
             //Add item button in navigation bar
-			ToolbarItem toolbarItem = new ToolbarItem
-			{
-				Text = "Sign up"
-			};
-            toolbarItem.Clicked += register;
+            ToolbarItem toolbarItem = new ToolbarItem
+            {
+                Text = "Cancel"
+            };
+            toolbarItem.Clicked += Cancel;
             //Add button to navigation
-			ToolbarItems.Add(toolbarItem);
+            ToolbarItems.Add(toolbarItem);
 
 
             //Create Label for the login page
-			Label loginLabel = new Label
-			{
-				Text = "Sign in",
+            Label loginLabel = new Label
+            {
+                Text = "Login",
                 TextColor = Color.DarkRed,
-				FontSize = 35,
-				FontAttributes = FontAttributes.Bold,
-				HorizontalOptions = LayoutOptions.Center
-			};
+                FontSize = 35,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalOptions = LayoutOptions.Center
+            };
 
             //Create text input to handle username
             usernameEntry = new Entry
@@ -70,7 +69,7 @@ namespace myForum
                     Spacing = 10,
 
                     //Append input text to container
-                    Children = {usernameEntry, passwordEntry}
+                    Children = { usernameEntry, passwordEntry }
                 }
 
             };
@@ -78,7 +77,7 @@ namespace myForum
             //Create login button
             Button loginButton = new Button
             {
-                Text = "Sign in",
+                Text = "Login",
                 TextColor = Color.White,
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
@@ -86,18 +85,23 @@ namespace myForum
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
 
+            //Create register button
+            Button registerButton = new Button
+            {
+                Text = "register",
+            };
+
             //When click login button
             loginButton.Clicked += LoggedIn;
-
+            registerButton.Clicked += register;
 
             //Append all view to the login page
             Content = new StackLayout
             {
                 Padding = 20,
                 Spacing = 20,
-                Children = {loginLabel, container, loginButton}
+                Children = {loginLabel, container, loginButton,registerButton }
             };
-
         }
 
         //Check login
@@ -125,14 +129,14 @@ namespace myForum
 			string password = passwordEntry.Text;
 
 			//Retrieve username list from server
-			string userList = await User.CheckList();
-
+            string userList = await User.GetList();
+      
 			//Check the username in the database or not
-			if (userList.Contains(username))
+            if (userList.Contains(username))
 			{
-				//Send input info request to server
+				// Send input info request to server
 				User data = await User.LoadUser(username);
-				//Retrieve data for the username and password from server
+				// Retrieve data for the username and password from server
 				string user = data.username;
 				string pass = data.password;
 				//Check the password is correct or not.
@@ -145,7 +149,8 @@ namespace myForum
 				{
 					//Password is correct
 					await DisplayAlert("Logged in", "Username:" + user + ", Password:" + pass, "Ok");
-					//await Navigation.PushModalAsync(new NaviationTab());
+					App.IsUserLoggedIn = true;
+					await Navigation.PopModalAsync();
 				}
 			}
 			else
@@ -159,10 +164,23 @@ namespace myForum
 		//register
         async void register(object sender, EventArgs e)
         {
+            Dismiss();
             //register page   
-            await Navigation.PushAsync(new RegisterSystem());
-
+            await Navigation.PushModalAsync(new NavigationPage(new RegisterSystem()));
         }
+
+        //The Navigation bar cancel button
+        async void Cancel(object sender, EventArgs e){
+            //Cancel the page
+            await Navigation.PopModalAsync();
+        }
+
+        //Dismiss currect page
+		void Dismiss()
+		{
+			//Cancel the currect page
+			Navigation.PopModalAsync();
+		}
 	}
 }
 

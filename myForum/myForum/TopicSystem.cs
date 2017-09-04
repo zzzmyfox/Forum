@@ -150,6 +150,7 @@ namespace myForum
                 Children ={hot,containerhot,other,containerother }
 			};
 		}
+
         //frame clicked 
 		void OnTapGestureRecognizerTapped(object sender, EventArgs args)
 		{

@@ -8,6 +8,7 @@ namespace myForum
     {
         public NaviationTab()
         {
+           
             //Set the navigation bar
             NavigationPage topic = new NavigationPage(new TopicSystem());
             NavigationPage profile = new NavigationPage(new ProfileSystem());

@@ -54,20 +54,17 @@ namespace myForum
             return result;
         }
 
-
-
-        public static async Task<string> CheckList()
+        //Get the list 
+        public static async Task<string> GetList()
         {
             try
             {
-                string result = "";
 			    string action = HTTPServer + "&action=list";
 			    Uri uri = new Uri(action);
 			    WebRequest request = WebRequest.Create(uri);
 			    request.Method = "GET";
 
-                result = await ServerResponse(request);
-
+                string result = await ServerResponse(request);
 
                 return result;
             }
@@ -94,7 +91,7 @@ namespace myForum
 
                 await ServerResponse(request);
 			}
-			catch (Exception e)
+			catch(Exception e)
 			{
 				Debug.WriteLine(e);
 			}
@@ -110,8 +107,7 @@ namespace myForum
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "GET";
 
-                 string result = await ServerResponse(request);
-
+                string result = await ServerResponse(request);
                 return CreateJson(result);
 
             }
