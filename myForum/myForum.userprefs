@@ -1,11 +1,7 @@
 ﻿<Properties StartupConfiguration="{89EBD012-4ED6-4E53-9CCF-05951D6F5D67}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/ForumSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/WebRequest/Connect_inc.cs">
     <Files>
-      <File FileName="myForum/ProfileSystem.cs" Line="1" Column="1" />
-      <File FileName="myForum/App.xaml.cs" Line="27" Column="98" />
-      <File FileName="myForum/AddItem.cs" Line="48" Column="104" />
-      <File FileName="myForum/SqliteDatabase/ItemData.cs" Line="16" Column="2" />
-      <File FileName="myForum/ForumSystem.cs" Line="123" Column="64" />
+      <File FileName="myForum/WebRequest/Connect_inc.cs" Line="57" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
