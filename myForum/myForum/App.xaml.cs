@@ -6,7 +6,8 @@ namespace myForum
     {
         //Log status 
         internal static bool IsUserLoggedIn;
-
+        //Initial database
+		static SqliteDatabase database;
         public App()
         {
             InitializeComponent();
@@ -16,7 +17,25 @@ namespace myForum
 
         }
 
-        protected override void OnStart()
+        //Initial database and write or get data 
+		public static SqliteDatabase Database
+		{
+			get
+			{
+				if (database == null)
+				{
+					database = new SqliteDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("myForum.db3"));
+				}
+				return database;
+			}
+		}
+
+        //Set up the index id of the database
+		public int IndexID { get; set; }
+
+
+
+		protected override void OnStart()
         {
             // Handle when your app starts
         }

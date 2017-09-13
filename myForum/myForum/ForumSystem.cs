@@ -9,22 +9,6 @@ namespace myForum
         //Initialise listview
         ListView listView;
 
-        //Post string
-		class Post
-		{
-			public Post(string title, string detail, string time)
-			{
-				this.PostTitle = title;
-				this.PostDetail = detail;
-				this.PostTime = time;
-			}
-
-			public string PostTitle { private set; get; }
-			public string PostDetail { private set; get;}
-			public string PostTime { private set; get; }
-
-		}
-
         //View Cell customer
 		public class PostCell : ViewCell
 		{
@@ -131,11 +115,25 @@ namespace myForum
                 Children = {scrollView}
             };
         }
-        //Login clicked
+        // Set the Index for the 
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+
+			//Set the id for the database the app when the app is closed
+            ((App)App.Current).IndexID = -1;
+			listView.ItemsSource = await App.Database.GetItemsAsync();
+		}
+
+        //Post bar item clicked
         async void myPost(object sender, System.EventArgs e)
 		{
-            await Navigation.PushAsync(new PostSystem());
+			await Navigation.PushAsync(new AddItem
+			{
+				BindingContext = new ItemData()
+			});
 		}
+
         //Listview  cell select
         async void ItemSelected (object sender, SelectedItemChangedEventArgs e)
         {
@@ -148,7 +146,16 @@ namespace myForum
             listView.SelectedItem = null;
 
 			//Show page title
-            await Navigation.PushAsync(new Details(e.SelectedItem));
+            ((App)App.Current).IndexID = (e.SelectedItem as ItemData).ID;
+
+            //To the detail page
+            await Navigation.PushAsync(new AddItem
+            {
+                //Set the navigation title name from the list view
+                Title = (e.SelectedItem as ItemData).Text,
+                //Set the data to pass to the new page
+				BindingContext = e.SelectedItem as ItemData
+			});
         }
     }
 }
