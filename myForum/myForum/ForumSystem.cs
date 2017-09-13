@@ -33,18 +33,19 @@ namespace myForum
 			{
 				// Create post title for cell
 				Label titleLabel = new Label();
-				titleLabel.SetBinding(Label.TextProperty, "PostTitle");
+				titleLabel.SetBinding(Label.TextProperty, "Text");
 
                 //Create post detail label for the cell
 				Label detailLabel = new Label();
-				detailLabel.SetBinding(Label.TextProperty, "PostDetail");
+				detailLabel.SetBinding(Label.TextProperty, "Description");
 
                 //Create time label for the cell
-				Label time = new Label();
+				Label read = new Label();
 				StackLayout horizontal = new StackLayout();
-				time.SetBinding(Label.TextProperty, "PostTime");
+                read.Text = "Read";
+                read.SetBinding(VisualElement.IsVisibleProperty, "Read");
 				horizontal.Orientation = StackOrientation.Horizontal;
-				time.HorizontalOptions = LayoutOptions.EndAndExpand;
+				read.HorizontalOptions = LayoutOptions.EndAndExpand;
 
 				//the cell for each views
 				StackLayout cellWrapper = new StackLayout();
@@ -53,7 +54,7 @@ namespace myForum
 				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
 				detailLabel.TextColor = Color.FromHex("#75ebf9");
-				time.TextColor = Color.FromHex("503026");
+                read.TextColor = Color.FromHex("#503026");
 
 
 				//Create boxView
@@ -82,7 +83,7 @@ namespace myForum
 				View = cellWrapper;
                 horizontal.Children.Add(box);
                 horizontal.Children.Add(cells);
-                horizontal.Children.Add(time);
+                horizontal.Children.Add(read);
                 cellWrapper.Children.Add(horizontal);
 			}
 		}
@@ -94,7 +95,7 @@ namespace myForum
             //Navigation bar item
             ToolbarItem newPost = new ToolbarItem
             {
-                Text = "New post"
+                Text = "+"
             };
 
             ToolbarItems.Add(newPost);
@@ -105,40 +106,10 @@ namespace myForum
 			{
 				Placeholder = "Search"
 			};
-
-        
-            //Create data for post
-            List<Post> posts = new List<Post>
-            {
-				new Post("Hello there!", "wooooooooooo", "8:30"),
-				new Post("Hello there!", "wooooooooooo", "8:36"),
-				new Post("Hello there!", "wooooooooooo", "9:32"),
-				new Post("Hello there!", "wooooooooooo", "10:17"),
-				new Post("Hello there!", "wooooooooooo", "10:23"),
-				new Post("Hello there!", "wooooooooooo", "10:34"),
-				new Post("Hello there!", "wooooooooooo", "10:37"),
-				new Post("Hello there!", "wooooooooooo", "11:20"),
-				new Post("Hello there!", "wooooooooooo", "11:38"),
-				new Post("Hello there!", "wooooooooooo", "12:30"),
-				new Post("Hello there!", "wooooooooooo", "12:45"),
-				new Post("Hello there!", "wooooooooooo", "12:50"),
-				new Post("Hello there!", "wooooooooooo", "13:10"),
-				new Post("Hello there!", "wooooooooooo", "13:31"),
-				new Post("Hello there!", "wooooooooooo", "13:40"),
-				new Post("Hello there!", "wooooooooooo", "14:09"),
-				new Post("Hello there!", "wooooooooooo", "15:20"),
-				new Post("Hello there!", "wooooooooooo", "15:30"),
-				new Post("Hello there!", "wooooooooooo", "15:35"),
-				new Post("Hello there!", "wooooooooooo", "16:37"),
-				new Post("Hello there!", "wooooooooooo", "18:30"),
-				new Post("Hello there!", "wooooooooooo", "19:30"),
-				new Post("Hello there!", "wooooooooooo", "20:30")
-            };
-
+                    
             //Create ListView
             listView = new ListView
             {
-                ItemsSource = posts,
                 ItemTemplate = new DataTemplate(typeof(PostCell)),
                 RowHeight = 70
             };

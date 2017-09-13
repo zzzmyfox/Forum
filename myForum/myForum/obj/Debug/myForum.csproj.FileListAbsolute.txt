@@ -36,3 +36,9 @@
 /Users/Zhe/Downloads/Project1-Forum-master/myForum/myForum/obj/Debug/myForum.pdb
 /Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/Newtonsoft.Json.dll
 /Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/Newtonsoft.Json.xml
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLite-net.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLitePCLRaw.batteries_green.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLitePCLRaw.batteries_v2.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLitePCLRaw.core.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLite-net.pdb
+/Users/Zhe/Desktop/Project1-Forum/myForum/myForum/bin/Debug/SQLite-net.xml

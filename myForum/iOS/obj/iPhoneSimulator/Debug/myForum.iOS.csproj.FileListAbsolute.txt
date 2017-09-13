@@ -120,3 +120,10 @@
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/topic@2x.png
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
 /Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.xml
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLite-net.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.batteries_green.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.batteries_v2.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.core.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.provider.sqlite3.dll
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLite-net.pdb
+/Users/Zhe/Desktop/Project1-Forum/myForum/iOS/bin/iPhoneSimulator/Debug/SQLite-net.xml
