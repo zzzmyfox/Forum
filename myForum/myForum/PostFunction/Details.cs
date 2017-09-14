@@ -8,76 +8,116 @@ namespace myForum
     {
         public Details()
         {
-            var titleLabel = new Label();
-			titleLabel.SetBinding(Label.TextProperty, "Text");
+            //Set up background color 
+            BackgroundColor = Color.FromHex("#f5e7b2");
 
-			var contentLabel = new Label();
+            //Set up title label
+            var titleLabel = new Label()
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                FontAttributes = FontAttributes.Bold,
+                FontSize = 24
+
+            };
+
+            titleLabel.SetBinding(Label.TextProperty, "Text");
+
+
+			//Set up content label
+			var contentLabel = new Label()
+            {
+
+                TextColor = Color.FromHex("#503026")
+              
+
+            };
 			contentLabel.SetBinding(Label.TextProperty, "Description");
 
-			var read = new Switch();
-			read.SetBinding(Switch.IsToggledProperty, "Read");
 
-			var saveButton = new Button 
-            { 
-                Text = "Save" 
-            };
-			saveButton.Clicked += async (sender, e) =>
-			{
-				var item = (ItemData)BindingContext;
-				await App.Database.SaveItemAsync(item);
-				await Navigation.PopAsync();
-			};
-
-			var deleteButton = new Button
-            { 
-                Text = "Delete"
-            };
-
-			deleteButton.Clicked += async (sender, e) =>
-			{
-				var item = (ItemData)BindingContext;
-				await App.Database.DeleteItemAsync(item);
-				await Navigation.PopAsync();
-			};
-
-			var cancelButton = new Button
-            { 
-                Text = "Cancel"
-            };
-
-			cancelButton.Clicked += async (sender, e) =>
-			{
-				await Navigation.PopAsync();
-			};
-
-			var speakButton = new Button 
+            //Set up username label
+            var nameLabel = new Label()
             {
-                Text = "Speak"
+                TextColor = Color.Orange,
+                FontSize = 15,
+                HorizontalOptions = LayoutOptions.Start
+   
             };
 
+            nameLabel.SetBinding(Label.TextProperty, "Username");
+
+
+
+            //Button for the speak
+			var speakButton = new Button
+			{
+				Text = "Speak",
+                TextColor = Color.White,
+                BackgroundColor = Color.FromHex("#fdbe68"),
+                HorizontalOptions =  LayoutOptions.CenterAndExpand
+			};
+
+
+			//Create frame for hot topics
+			Frame containerTitle = new Frame
+			{
+				BackgroundColor = Color.FromHex("#fcf5c3"),
+				HasShadow = false,
+
+				VerticalOptions = LayoutOptions.Center,
+				//Create view for container
+				Content = new StackLayout
+				{
+					//Append input text to container
+					Children = { titleLabel }
+				}
+			};
+
+
+            //Create frame for hot topics
+            Frame containerContent = new Frame
+            {
+                BackgroundColor = Color.FromHex("#fcf5c3"),
+                HasShadow = false,
+
+                //Create view for container
+                Content = new StackLayout
+                {
+                    
+					//Append input text to container
+                    Children = { contentLabel, nameLabel }
+				}
+			};
+
+			//Create frame for hot topics
+			Frame containerName = new Frame
+			{
+				BackgroundColor = Color.FromHex("#fcf5c3"),
+				HasShadow = false,
+
+				//Create view for container
+				Content = new StackLayout
+				{
+
+					//Append input text to container
+					Children = { nameLabel, speakButton }
+				}
+			};
+
+
+            //Speak button clicked
 			speakButton.Clicked += (sender, e) =>
 			{
-				var item = (ItemData)BindingContext;
+                var item = (Topic)BindingContext;
 				DependencyService.Get<ITextToSpeech>().Speak(item.Text + " " + item.Description);
 			};
 
+
+
+            //Add to view
 			Content = new StackLayout
 			{
-				Margin = new Thickness(20),
-				VerticalOptions = LayoutOptions.StartAndExpand,
-				Children =
-				{
-					new Label { Text = "Text" },
-                    titleLabel,
-					new Label { Text = "Description" },
-                    contentLabel,
-					new Label { Text = "Read" },
-					read,
-					saveButton,
-					deleteButton,
-					cancelButton,
-					speakButton
-				}
+                Spacing = 0,
+                Children ={ containerTitle, containerContent,containerName}
 			};
 		}
 	}

@@ -20,18 +20,15 @@ namespace myForum
 				// Create post title for cell
 				Label titleLabel = new Label();
 				titleLabel.SetBinding(Label.TextProperty, "Text");
-
+            
                 //Create post detail label for the cell
-				Label detailLabel = new Label();
-				detailLabel.SetBinding(Label.TextProperty, "Description");
-
-                //Create time label for the cell
-				Label read = new Label();
+				Label userLabel = new Label();
+				userLabel.SetBinding(Label.TextProperty, "Username");
+                userLabel.FontSize = 10;
+                //Set the horizontal orientation
 				StackLayout horizontal = new StackLayout();
-                read.Text = "Read";
-                read.SetBinding(VisualElement.IsVisibleProperty, "Read");
 				horizontal.Orientation = StackOrientation.Horizontal;
-				read.HorizontalOptions = LayoutOptions.EndAndExpand;
+		
 
 				//the cell for each views
 				StackLayout cellWrapper = new StackLayout();
@@ -39,10 +36,8 @@ namespace myForum
 				//Set cell design
 				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
-				detailLabel.TextColor = Color.FromHex("#75ebf9");
-                read.TextColor = Color.FromHex("#503026");
-
-
+				userLabel.TextColor = Color.FromHex("#503026");
+             
 				//Create boxView
 				BoxView box = new BoxView
 				{
@@ -60,7 +55,7 @@ namespace myForum
 									{
 										VerticalOptions = LayoutOptions.Center,
 										Spacing = 5,
-										Children ={titleLabel,detailLabel}
+										Children ={titleLabel,userLabel }
 									}
 								}
                 };
@@ -69,11 +64,11 @@ namespace myForum
 				View = cellWrapper;
                 horizontal.Children.Add(box);
                 horizontal.Children.Add(cells);
-                horizontal.Children.Add(read);
                 cellWrapper.Children.Add(horizontal);
 			}
 		}
 
+        //Load Data from could storage
         public async void GetJsonList()
         {
             Post post = new Post();
@@ -82,9 +77,11 @@ namespace myForum
             listView.ItemsSource = getTopic.List(result);
         }
 
+
+
         public ForumSystem()
         {
-            GetJsonList();
+           
 
             Title = "Forum";
             //Navigation bar item
@@ -107,8 +104,10 @@ namespace myForum
             listView = new ListView
             {
                 ItemTemplate = new DataTemplate(typeof(PostCell)),
-                RowHeight = 70
+                RowHeight = 85
             };
+
+            GetJsonList();
             //ListView Cell selected
             listView.ItemSelected += ItemSelected;
          
@@ -141,10 +140,10 @@ namespace myForum
         //Post bar item clicked
         async void myPost(object sender, System.EventArgs e)
 		{
-			await Navigation.PushAsync(new AddItem
-			{
-				BindingContext = new ItemData()
-			});
+            await Navigation.PushAsync(new PostSystem());
+			//{
+			//	BindingContext = new ItemData()
+			//});
 		}
 
         //Listview  cell select
@@ -159,15 +158,15 @@ namespace myForum
             listView.SelectedItem = null;
 
 			//Show page title
-            ((App)App.Current).IndexID = (e.SelectedItem as ItemData).ID;
+            //((App)App.Current).IndexID = (e.SelectedItem as ItemData).ID;
 
             //To the detail page
             await Navigation.PushAsync(new Details
             {
                 //Set the navigation title name from the list view
-                Title = (e.SelectedItem as ItemData).Text,
+                Title = (e.SelectedItem as Topic).Text,
                 //Set the data to pass to the new page
-				BindingContext = e.SelectedItem as ItemData
+				BindingContext = e.SelectedItem as Topic
 			});
         }
     }

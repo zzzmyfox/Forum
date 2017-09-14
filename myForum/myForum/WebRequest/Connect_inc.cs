@@ -13,9 +13,10 @@ namespace myForum
 	{
         private static string HTTPServer = "http://introtoapps.com/datastore.php?appid=215197324";
 
-		public string username;
-		public string password;
+        public string username { get; set; }
+        public string password { get; set; }
 
+        //Create Json from user
 		public static User CreateJson(string json)
 		{
 			User data = JsonConvert.DeserializeObject<User>(json);
@@ -27,6 +28,22 @@ namespace myForum
 			return JsonConvert.SerializeObject(this);
 
 		}
+
+        public User(){
+            
+        }
+
+        //Object 
+        public User(string username){
+            this.username = username;
+        }
+
+        public User(string username, string password)
+        {
+            this.username = username;
+            this.password = password; 
+        }
+
 
         //Get response from server
         public static async Task<string> ServerResponse(WebRequest request)
@@ -80,10 +97,11 @@ namespace myForum
 		{
 			try
 			{
-				string jsonString = ToJsonString();
+                //Encode the json to the url
+                string jsonString = ToJsonString();
 				jsonString = WebUtility.UrlEncode(jsonString);
-
-				string action = HTTPServer + "&action=save&objectid=" + username + "&data=" + jsonString;
+                //The request url
+				string action = HTTPServer + "&action=save&objectid=" + username + ".user" + "&data=" + jsonString;
 				Uri uri = new Uri(action);
 				WebRequest request = WebRequest.Create(uri);
 				request.Method = "GET";
@@ -101,7 +119,7 @@ namespace myForum
         {
             try
             {
-                string action = HTTPServer + "&action=load&objectid=" + username;
+                string action = HTTPServer + "&action=load&objectid=" + username + ".user";
                 Uri uri = new Uri(action);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "GET";

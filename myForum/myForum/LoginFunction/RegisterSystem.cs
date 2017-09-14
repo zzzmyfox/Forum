@@ -147,7 +147,7 @@ namespace myForum
 				else
 				{
                     //The username and password encode to Json 
-					User data = User.CreateJson("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
+                    User data = new User(username,password);
                     //Create user by Json
                     data.CreateUser();
 

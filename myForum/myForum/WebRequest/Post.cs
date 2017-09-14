@@ -28,14 +28,11 @@ namespace myForum
 		}
 
 		//Post the new topic
-		public async void NewPost()
+		public async void NewPost(string json)
 		{
 			try
 			{
-				string jsonString = ToJsonString();
-				jsonString = WebUtility.UrlEncode(jsonString);
-
-				string action = HTTPServer + "&action=append&objectid=zelda.topic" + "&data=" + jsonString;
+				string action = HTTPServer + "&action=save&objectid=zelda.topic" + "&data=" + json;
 				Uri uri = new Uri(action);
 				WebRequest request = WebRequest.Create(uri);
 				request.Method = "POST";

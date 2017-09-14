@@ -88,7 +88,7 @@ namespace myForum
             //Create register button
             Button registerButton = new Button
             {
-                Text = "register",
+                Text = "Register",
             };
 
             //When click login button

@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace myForum
@@ -46,8 +47,8 @@ namespace myForum
         }
 
 
-        //After post
-        async void post(object sender, EventArgs e)
+		//After post
+		async void post(object sender, EventArgs e)
         {
 
             string postTitle = titleEntry.Text;
@@ -61,12 +62,19 @@ namespace myForum
             }
             else
             {
-                //The username and password encode to Json 
-                Post data = Post.CreateJson("{\"post\":\"" + postTitle + postContent + "\"}");
+				Post myPost = new Post();
+                GetTopic getTopic = new GetTopic();
+                string result = await myPost.LoadPost();
 
-                Debug.WriteLine(data);
-                //Create user by Json
-                data.NewPost();
+				List<Topic> list = new List<Topic>();
+                Topic topic = new Topic(postTitle, postContent, "zhewang");
+                list.Add(topic);
+
+
+                string json = getTopic.ListToJson(list);
+
+                Debug.WriteLine(getTopic.List(result));
+                myPost.NewPost(json);
             }
         }
     }
