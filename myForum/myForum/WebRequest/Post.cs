@@ -32,7 +32,7 @@ namespace myForum
 		{
 			try
 			{
-				string action = HTTPServer + "&action=save&objectid=zelda.topic" + "&data=" + json;
+				string action = HTTPServer + "&action=append&objectid=zelda.topic" + "&data=" + json;
 				Uri uri = new Uri(action);
 				WebRequest request = WebRequest.Create(uri);
 				request.Method = "POST";

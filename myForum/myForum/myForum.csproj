@@ -39,7 +39,6 @@
     <Compile Include="TopicSystem.cs" />
     <Compile Include="NaviationTab.cs" />
     <Compile Include="SqliteDatabase\IFileHelper.cs" />
-    <Compile Include="SqliteDatabase\ITextToSpeech.cs" />
     <Compile Include="SqliteDatabase\ItemData.cs" />
     <Compile Include="SqliteDatabase\SqliteDatabase.cs" />
     <Compile Include="LoginFunction\RegisterSystem.cs" />
@@ -52,6 +51,7 @@
     <Compile Include="WebRequest\Post.cs" />
     <Compile Include="ObjectClass\Topic.cs" />
     <Compile Include="ObjectClass\GetTopic.cs" />
+    <Compile Include="Speak\ITextToSpeech.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -87,6 +87,7 @@
     <Folder Include="LoginFunction\" />
     <Folder Include="WebRequest\" />
     <Folder Include="ObjectClass\" />
+    <Folder Include="Speak\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

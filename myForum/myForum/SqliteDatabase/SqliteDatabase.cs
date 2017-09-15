@@ -21,34 +21,42 @@ namespace myForum
             database.CreateTableAsync<ItemData>().Wait();
 		}
 
-        //Get data from database and add to list
-		public Task<List<ItemData>> GetItemsAsync()
+		//      //Get data from database and add to list
+		//public Task<List<ItemData>> GetItemsAsync()
+		//{
+		//	return database.Table<ItemData>().ToListAsync();
+		//}
+
+		//      //SQL query which is using to markdown which one is read by user
+		//public Task<List<ItemData>> GetItemsNotDoneAsync()
+		//{
+		//	return database.QueryAsync<ItemData>("SELECT * FROM [ItemData] WHERE [IsUserLoggedIn] = 0");
+		//}
+		//      //Query of select the data from ID
+		//public Task<ItemData> GetItemAsync(int id)
+		//{
+		//	return database.Table<ItemData>().Where(i => i.ID == id).FirstOrDefaultAsync();
+		//}
+
+
+
+		public Task<ItemData> GetItemAsync()
 		{
-			return database.Table<ItemData>().ToListAsync();
+            return database.Table<ItemData>().FirstOrDefaultAsync();
 		}
 
 
-        //SQL query which is using to markdown which one is read by user
-		public Task<List<ItemData>> GetItemsNotDoneAsync()
-		{
-			return database.QueryAsync<ItemData>("SELECT * FROM [ItemData] WHERE [Read] = 0");
-		}
-        //Query of select the data from ID
-		public Task<ItemData> GetItemAsync(int id)
-		{
-			return database.Table<ItemData>().Where(i => i.ID == id).FirstOrDefaultAsync();
-		}
-        //Insert data to database 
+		//Insert data to database 
 		public Task<int> SaveItemAsync(ItemData item)
 		{
-			if (item.ID != 0)
-			{
-				return database.UpdateAsync(item);
-			}
-			else
-			{
+   //         if (item.Username != null)
+			//{
+			//	return database.UpdateAsync(item);
+			//}
+			//else
+			//{
 				return database.InsertAsync(item);
-			}
+			//}
 		}
 
         //Delete data from database

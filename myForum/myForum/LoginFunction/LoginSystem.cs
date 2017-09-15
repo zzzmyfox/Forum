@@ -46,6 +46,8 @@ namespace myForum
                 Keyboard = Keyboard.Create(KeyboardFlags.None)
 
             };
+            usernameEntry.SetBinding(Entry.TextProperty, "Username");
+
 
             //Create text input to hanlde password
             passwordEntry = new Entry
@@ -55,6 +57,7 @@ namespace myForum
                 IsPassword = true
             };
 
+            usernameEntry.SetBinding(Entry.TextProperty, "Password");
 
             //Create container for text input
             Frame container = new Frame
@@ -149,6 +152,14 @@ namespace myForum
 				{
 					//Password is correct
 					await DisplayAlert("Logged in", "Username:" + user + ", Password:" + pass, "Ok");
+
+
+
+                    ((App)App.Current).IndexID = -1;
+
+                    var item = (ItemData)BindingContext;
+                    await App.Database.SaveItemAsync(item);
+
 					App.IsUserLoggedIn = true;
 					await Navigation.PopModalAsync();
 				}
@@ -157,7 +168,6 @@ namespace myForum
 			{
 				//Show the error message when username is not correct.
 				await DisplayAlert("Login Error", "Username does not exist, please try again!", "Ok");
-
 			}
 		}
 

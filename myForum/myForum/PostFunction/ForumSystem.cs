@@ -53,8 +53,7 @@ namespace myForum
 								{
 									new StackLayout
 									{
-										VerticalOptions = LayoutOptions.Center,
-										Spacing = 5,
+                                        VerticalOptions = LayoutOptions.StartAndExpand,
 										Children ={titleLabel,userLabel }
 									}
 								}
@@ -68,21 +67,8 @@ namespace myForum
 			}
 		}
 
-        //Load Data from could storage
-        public async void GetJsonList()
-        {
-            Post post = new Post();
-            string result = await post.LoadPost();
-            GetTopic getTopic = new GetTopic();
-            listView.ItemsSource = getTopic.List(result);
-        }
-
-
-
         public ForumSystem()
         {
-           
-
             Title = "Forum";
             //Navigation bar item
             ToolbarItem newPost = new ToolbarItem
@@ -99,7 +85,6 @@ namespace myForum
 				Placeholder = "Search"
 			};
 
-
             //Create ListView
             listView = new ListView
             {
@@ -107,7 +92,6 @@ namespace myForum
                 RowHeight = 85
             };
 
-            GetJsonList();
             //ListView Cell selected
             listView.ItemSelected += ItemSelected;
          
@@ -127,23 +111,41 @@ namespace myForum
             };
         }
 
-        // Set the Index for the 
+		//Load Data from could storage
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
+            //initial the post class
+			Post post = new Post();
+            //Get the result from the server
+			string result = await post.LoadPost();
 
-			//Set the id for the database the app when the app is closed
-            ((App)App.Current).IndexID = -1;
-			listView.ItemsSource = await App.Database.GetItemsAsync();
+			//Initial the GetTopic class
+			GetTopic getTopic = new GetTopic();
+
+            if(result != null){
+                
+				//Add the list to the listview
+				listView.ItemsSource = getTopic.List(result);
+            }else{
+                await DisplayAlert("Welcome","It seems no one on this Topic","Yes");
+            }  
 		}
 
         //Post bar item clicked
         async void myPost(object sender, System.EventArgs e)
 		{
-            await Navigation.PushAsync(new PostSystem());
-			//{
-			//	BindingContext = new ItemData()
-			//});
+
+            //Not login
+            if (App.IsUserLoggedIn == false)
+            {
+                await DisplayAlert("You must Login first", "You haven't login yet.", "Ok");
+                await Navigation.PushModalAsync(new NavigationPage(new LoginSystem()));
+            }
+            else
+            {
+                await Navigation.PushAsync(new PostSystem());
+            }
 		}
 
         //Listview  cell select

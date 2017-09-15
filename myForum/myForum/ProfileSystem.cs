@@ -11,6 +11,9 @@ namespace myForum
             //Set title for profile page
             Title = "Profile";
 
+			var item = (ItemData)BindingContext;
+			App.Database.GetItemAsync();
+
             //Button in navigation bar for sign in and sign out
             if (App.IsUserLoggedIn == false)
             {
@@ -39,6 +42,8 @@ namespace myForum
                     VerticalOptions = LayoutOptions.Center,
                     FontAttributes = FontAttributes.Bold
                 };
+
+                label.SetBinding(Label.TextProperty, "Username");
 
                 // name and image frame
                 Frame container = new Frame
@@ -129,6 +134,9 @@ namespace myForum
             //Login
             async void showLogin(object sender, System.EventArgs e)
             {
+
+				
+
                 await Navigation.PushModalAsync(new NavigationPage(new LoginSystem()));
             }
 

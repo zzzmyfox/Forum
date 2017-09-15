@@ -5,7 +5,7 @@ namespace myForum
     public partial class App : Application
     {
         //Log status 
-        internal static bool IsUserLoggedIn;
+        public static bool IsUserLoggedIn;
         //Initial database
 		static SqliteDatabase database;
         public App()
@@ -24,7 +24,7 @@ namespace myForum
 			{
 				if (database == null)
 				{
-					database = new SqliteDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("myForum.db3"));
+					database = new SqliteDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("user.db3"));
 				}
 				return database;
 			}
@@ -32,7 +32,6 @@ namespace myForum
 
         //Set up the index id of the database
 		public int IndexID { get; set; }
-
 
 
 		protected override void OnStart()

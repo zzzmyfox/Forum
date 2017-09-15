@@ -17,7 +17,6 @@ namespace myForum
                 HorizontalOptions = LayoutOptions.Center,
                 FontAttributes = FontAttributes.Bold,
                 FontSize = 24
-
             };
 
             titleLabel.SetBinding(Label.TextProperty, "Text");
@@ -56,7 +55,6 @@ namespace myForum
                 HorizontalOptions =  LayoutOptions.CenterAndExpand
 			};
 
-
 			//Create frame for hot topics
 			Frame containerTitle = new Frame
 			{
@@ -82,7 +80,6 @@ namespace myForum
                 //Create view for container
                 Content = new StackLayout
                 {
-                    
 					//Append input text to container
                     Children = { contentLabel, nameLabel }
 				}
