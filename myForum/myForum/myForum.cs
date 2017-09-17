@@ -7,7 +7,7 @@ namespace myForum
     public class App : Application
     {
 		//Initial loggin status 
-		public static bool IsUserLoggedIn = true;
+		public static bool IsUserLoggedIn;
         //Initial SQLite database
         static SqliteDatabase database;
         public int IndexID { get; set; }
@@ -29,7 +29,6 @@ namespace myForum
 				return database;
 			}
 		}
-
 
 		protected override void OnStart()
         {

@@ -11,21 +11,10 @@ namespace myForum
         {
             //Set title for profile page
             Title = "Profile";
-	
-            ////Button in navigation bar for sign in and sign out
-            //if (App.IsUserLoggedIn == false)
 
-        }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-			List<ItemData> list = await App.Database.GetItemsAsync();
-
-            if(list.Count !=0)
+			////Button in navigation bar for sign in and sign out
+            if (App.IsUserLoggedIn != true)
             {
-                ItemData item = await App.Database.Load();
 				//After login
 				//Backgound colour 
 				BackgroundColor = Color.FromHex("#fcf0cd");
@@ -50,9 +39,8 @@ namespace myForum
 					VerticalOptions = LayoutOptions.Center,
 					FontAttributes = FontAttributes.Bold
 				};
-                label.SetBinding(Label.TextProperty,"Username");
-                label.Text = item.Username;
-               
+				label.SetBinding(Label.TextProperty, "Username");
+
 				// Username and image frame
 				Frame container = new Frame
 				{
@@ -81,9 +69,9 @@ namespace myForum
 				};
 				ToolbarItems.Add(logOut);
 				logOut.Clicked += logout;
-            }
-            else
-            {
+
+			}else{
+
 				//Background color
 				BackgroundColor = Color.FromHex("#fcf0cd");
 
@@ -128,7 +116,6 @@ namespace myForum
 					Children = { container }
 				};
 
-
 				//item bar button
 				ToolbarItem signIn = new ToolbarItem
 				{
@@ -137,39 +124,50 @@ namespace myForum
 				ToolbarItems.Add(signIn);
 				signIn.Clicked += showLogin;
             }
-
-
-			//Login
-			async void showLogin(object sender, System.EventArgs e)
-			{
-             
-
-                await Navigation.PushModalAsync(new NavigationPage(new LoginSystem
-                {
-
-                    BindingContext = new ItemData()
-				}));
-			}
-
-			//Logout
-			async void logout(object sender, System.EventArgs e)
-			{
-				App.IsUserLoggedIn = false;
-				await DisplayAlert("Logout", "Logout success!", "Ok");
-
-				 ItemData items = new ItemData();
-                //Delete 
-				//var item = (ItemData)BindingContext;
-				await App.Database.DeleteItemAsync(items);
-
-				await Navigation.PushModalAsync(new NaviationTab());
-			}
         }
 
+        //Load
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+            //Load database
+			List<ItemData> list = await App.Database.GetItemsAsync();
+            //Check the database is not null
+			if (list.Count != 0)
+			{
+				ItemData item = await App.Database.Load();
+			}
+			else
+			{
+
+			}
+		}
+
+		//Logout
+		async void logout(object sender, System.EventArgs e)
+		{
+			App.IsUserLoggedIn = false;
+			await DisplayAlert("Logout", "Logout success!", "Ok");
+
+			ItemData items = new ItemData();
+			//Delete 
+			//var item = (ItemData)BindingContext;
+			await App.Database.DeleteItemAsync(items);
+
+			await Navigation.PushModalAsync(new NaviationTab());
+		}
+
+		//Login
+		async void showLogin(object sender, System.EventArgs e)
+		{
 
 
+			await Navigation.PushModalAsync(new NavigationPage(new LoginSystem
+			{
 
-
+				BindingContext = new ItemData()
+			}));
+		}
     }
 }
 

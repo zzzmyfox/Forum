@@ -130,10 +130,7 @@ namespace myForum
 				//Add the list to the listview
                 listView.ItemsSource = list;
             }else{
-                
-                Post item = new Post("Welcome to this game forum!","Welcome here and always feel free to talk about the game you like and the way you are to play.","Developer");
-                list.Add(item);
-                listView.ItemsSource = list;
+              //Handle the error if the cloud storage is null
             }  
 		}
 
