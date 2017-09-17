@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProjectGuid>{89EBD012-4ED6-4E53-9CCF-05951D6F5D67}</ProjectGuid>
+    <ProjectGuid>{FEF2A3D9-4C7D-4CD5-AC97-85545B3070E3}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>myForum.iOS</RootNamespace>
@@ -19,11 +19,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
-    <IOSDebuggerPort>30895</IOSDebuggerPort>
+    <IOSDebuggerPort>65086</IOSDebuggerPort>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
@@ -50,7 +49,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>i386, x86_64</MtouchArch>
@@ -72,7 +70,7 @@
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <IOSDebuggerPort>55159</IOSDebuggerPort>
+    <IOSDebuggerPort>47283</IOSDebuggerPort>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
@@ -113,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\myForum\myForum.csproj">
-      <Project>{273A2B89-E85A-4454-A870-292D5362766D}</Project>
+      <Project>{4E95D7C6-FB00-4DA9-91DC-8812A99543A5}</Project>
       <Name>myForum</Name>
     </ProjectReference>
   </ItemGroup>
@@ -121,10 +119,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29X29.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58X58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120X120.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87X87.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80X80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120X120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58X58.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -140,12 +138,12 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="FileHelper.cs" />
     <Compile Include="TextToSpeech_iOS.cs" />
+    <Compile Include="FileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\profile%402x.png" />
     <BundleResource Include="Resources\profile.png" />
+    <BundleResource Include="Resources\profile%402x.png" />
     <BundleResource Include="Resources\topic.png" />
     <BundleResource Include="Resources\topic%402x.png" />
   </ItemGroup>

@@ -1,7 +1,11 @@
-﻿<Properties StartupConfiguration="{89EBD012-4ED6-4E53-9CCF-05951D6F5D67}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/PostFunction/Details.cs">
+﻿<Properties StartupConfiguration="{FEF2A3D9-4C7D-4CD5-AC97-85545B3070E3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/Main.cs">
     <Files>
-      <File FileName="myForum/PostFunction/Details.cs" Line="76" Column="14" />
+      <File FileName="myForum/Test/PostList.cs" Line="40" Column="23" />
+      <File FileName="myForum/Test/AddItem.cs" Line="32" Column="8" />
+      <File FileName="myForum/UI/PostSystem.cs" Line="12" Column="9" />
+      <File FileName="myForum/myForum.cs" Line="10" Column="44" />
+      <File FileName="iOS/Main.cs" Line="17" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -10,5 +14,7 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.myForum.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B44B7274-348C-4C50-9BFD-185C3CF1E709" />
+  <MonoDevelop.Ide.ItemProperties.myForum.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B44B7274-348C-4C50-9BFD-185C3CF1E709">
+    <MonoDevelop.MacDev.AppleDevelopmentTeam />
+  </MonoDevelop.Ide.ItemProperties.myForum.iOS>
 </Properties>
