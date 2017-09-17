@@ -14,7 +14,7 @@ namespace myForum
 
 		/*-------------------------------------START---WEB--REQUEST-----------------------------------------*/
 
-		//Get the list 
+		//Get list 
 		public static async Task<string> GetList()
 		{
 			try

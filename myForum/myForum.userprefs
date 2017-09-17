@@ -1,5 +1,10 @@
 ﻿<Properties StartupConfiguration="{FEF2A3D9-4C7D-4CD5-AC97-85545B3070E3}|Default">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/UI/ForumSystem.cs">
+    <Files>
+      <File FileName="myForum/UI/ForumSystem.cs" Line="139" Column="4" />
+      <File FileName="myForum/UI/ProfileSystem.cs" Line="23" Column="11" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

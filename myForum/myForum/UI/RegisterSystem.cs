@@ -44,6 +44,8 @@ namespace myForum
                 Keyboard = Keyboard.Create(KeyboardFlags.None),
                 HeightRequest = 40
             };
+			//Set the property for for the username entry
+			usernameEntry.SetBinding(Entry.TextProperty, "Username");
 
 			//register page password text input
 			passwordEntry = new Entry
@@ -52,6 +54,8 @@ namespace myForum
                 IsPassword = true,
 				HeightRequest = 40
             };
+			//Set the property for for the password entry
+			passwordEntry.SetBinding(Entry.TextProperty, "Password");
 
 			//register page password confirm text input
 			confirmEntry = new Entry
@@ -60,7 +64,6 @@ namespace myForum
                 IsPassword = true,
 				HeightRequest = 40
             };
-
 
             //Text input container
             Frame container = new Frame
@@ -78,7 +81,6 @@ namespace myForum
                     Children = { usernameEntry, passwordEntry, confirmEntry}
 				}
             };
-
 
 			//Create login button
 			Button registerButton = new Button
@@ -116,7 +118,6 @@ namespace myForum
             else
             {
                 CheckUser();
-
             }
         }
 
@@ -152,10 +153,14 @@ namespace myForum
                     //Convert to json
                     JsonStringUser user = new JsonStringUser();
                     string result = user.ToJsonString(data);
-
                     //Create user by Json
                     await Connection.CreateUser(username, result);
+					//Save username and password to local database
+					var item = (ItemData)BindingContext;
+					await App.Database.SaveItemAsync(item);
 
+                    //After register
+                    await DisplayAlert("Welcome!" ,"Hello and welcome" + username +" become a new user of us and you are automatically login after register, hope you enjoy it.", "Ok");
                     await Navigation.PushModalAsync(new NaviationTab());
 				}
 			}

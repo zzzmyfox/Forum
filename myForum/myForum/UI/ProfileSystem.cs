@@ -11,13 +11,21 @@ namespace myForum
         {
             //Set title for profile page
             Title = "Profile";
+			//Backgound colour 
+			BackgroundColor = Color.FromHex("#fcf0cd");
 
-			////Button in navigation bar for sign in and sign out
-            if (App.IsUserLoggedIn != true)
-            {
-				//After login
-				//Backgound colour 
-				BackgroundColor = Color.FromHex("#fcf0cd");
+            checkLogin();
+        }
+
+        //Load
+        public  async void checkLogin()
+		{
+            //Load database
+			List<ItemData> list = await App.Database.GetItemsAsync();
+            //Check the database is not null
+			if (list.Count != 0)
+			{
+				ItemData item = await App.Database.Load();
 
 				//User profile image 
 				Button button = new Button
@@ -39,7 +47,7 @@ namespace myForum
 					VerticalOptions = LayoutOptions.Center,
 					FontAttributes = FontAttributes.Bold
 				};
-				label.SetBinding(Label.TextProperty, "Username");
+                label.Text = item.Username;
 
 				// Username and image frame
 				Frame container = new Frame
@@ -54,27 +62,22 @@ namespace myForum
 						Children = { button, label }
 					}
 				};
-
-
 				//Add to view
 				Content = new StackLayout
 				{
 					Children = { container }
 				};
 
-				// After sign in
+				//After login
 				ToolbarItem logOut = new ToolbarItem
 				{
 					Text = "Logout"
 				};
 				ToolbarItems.Add(logOut);
 				logOut.Clicked += logout;
-
-			}else{
-
-				//Background color
-				BackgroundColor = Color.FromHex("#fcf0cd");
-
+			}
+			else
+			{
 				// for User image
 				Button button = new Button
 				{
@@ -123,45 +126,23 @@ namespace myForum
 				};
 				ToolbarItems.Add(signIn);
 				signIn.Clicked += showLogin;
-            }
-        }
-
-        //Load
-		protected override async void OnAppearing()
-		{
-			base.OnAppearing();
-            //Load database
-			List<ItemData> list = await App.Database.GetItemsAsync();
-            //Check the database is not null
-			if (list.Count != 0)
-			{
-				ItemData item = await App.Database.Load();
-			}
-			else
-			{
-
 			}
 		}
 
 		//Logout
 		async void logout(object sender, System.EventArgs e)
 		{
-			App.IsUserLoggedIn = false;
+            //Delete login data
+            App.Database.DeleteItemAsync();
+
 			await DisplayAlert("Logout", "Logout success!", "Ok");
-
-			ItemData items = new ItemData();
-			//Delete 
-			//var item = (ItemData)BindingContext;
-			await App.Database.DeleteItemAsync(items);
-
+          
 			await Navigation.PushModalAsync(new NaviationTab());
 		}
 
 		//Login
 		async void showLogin(object sender, System.EventArgs e)
 		{
-
-
 			await Navigation.PushModalAsync(new NavigationPage(new LoginSystem
 			{
 

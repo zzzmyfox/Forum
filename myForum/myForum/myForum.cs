@@ -1,17 +1,17 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace myForum
 {
     public class App : Application
     {
-		//Initial loggin status 
-		public static bool IsUserLoggedIn;
-        //Initial SQLite database
-        static SqliteDatabase database;
-        public int IndexID { get; set; }
-
+		//Initial SQLite database
+		static SqliteDatabase database;
+            
         public App()
         {
             MainPage = new NaviationTab();
@@ -32,8 +32,8 @@ namespace myForum
 
 		protected override void OnStart()
         {
-            // Handle when your app starts
-        }
+            // Handle when your app starts  
+		}
 
         protected override void OnSleep()
         {

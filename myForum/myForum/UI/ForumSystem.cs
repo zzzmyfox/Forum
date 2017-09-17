@@ -137,15 +137,20 @@ namespace myForum
         //Post bar item clicked
         async void myPost(object sender, System.EventArgs e)
 		{
+			//Load database
+			List<ItemData> list = await App.Database.GetItemsAsync();
             //Not login
-            if (App.IsUserLoggedIn == false)
+            if (list.Count != 0)
             {
-                await DisplayAlert("You must Login first", "You haven't login yet.", "Ok");
-                await Navigation.PushModalAsync(new NavigationPage(new LoginSystem()));
+				await Navigation.PushAsync(new PostSystem());
             }
             else
             {
-                await Navigation.PushAsync(new PostSystem());
+				await DisplayAlert("You must Login first", "You haven't login yet.", "Ok");
+				await Navigation.PushModalAsync(new NavigationPage(new LoginSystem())
+				{
+					BindingContext = new ItemData()
+				});
             }
 		}
 

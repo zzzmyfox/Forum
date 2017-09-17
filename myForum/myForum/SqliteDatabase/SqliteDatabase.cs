@@ -26,18 +26,6 @@ namespace myForum
             return database.Table<ItemData>().FirstOrDefaultAsync();
            }
 
-
-
-            public Task<List<ItemData>> GetItemsNotDoneAsync()
-            {
-                return database.QueryAsync<ItemData>("SELECT * FROM [ItemData] WHERE [Read] = 0");
-            }
-
-            public Task<ItemData> GetItemAsync(int id)
-            {
-                return database.Table<ItemData>().Where(i => i.ID == id).FirstOrDefaultAsync();
-            }
-
             public Task<int> SaveItemAsync(ItemData item)
             {
                 if (item.ID != 0)
@@ -50,9 +38,10 @@ namespace myForum
                 }
             }
 
-            public Task<int> DeleteItemAsync(ItemData item)
+            public void DeleteItemAsync()
             {
-            return database.DeleteAsync(item);
+			  string deleteTable = "DELETE FROM ItemData;";
+			 database.ExecuteAsync(deleteTable);
             }
         }
     }

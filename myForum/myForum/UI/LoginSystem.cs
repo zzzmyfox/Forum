@@ -160,8 +160,8 @@ namespace myForum
 					//Save username and password to local database
 					var item = (ItemData)BindingContext;
 					await App.Database.SaveItemAsync(item);
-                    App.IsUserLoggedIn = true;
-					await Navigation.PushModalAsync(new NaviationTab());
+
+	         		await Navigation.PushModalAsync(new NaviationTab());
 				}
 			}
 			else
@@ -176,7 +176,10 @@ namespace myForum
         {
             Dismiss();
             //register page   
-            await Navigation.PushModalAsync(new NavigationPage(new RegisterSystem()));
+            await Navigation.PushModalAsync(new NavigationPage(new RegisterSystem()
+            {
+                 BindingContext = new ItemData()
+            }));
         }
 
         //The Navigation bar cancel button
