@@ -17,11 +17,65 @@ namespace myForum
             checkLogin();
         }
 
-        //Load
-        public  async void checkLogin()
+		//Initialise listview
+		ListView listView;
+
+		//View Cell customer
+		public class PostCell : ViewCell
+		{
+			public PostCell()
+			{
+				// Create post title for cell
+				Label titleLabel = new Label();
+				titleLabel.SetBinding(Label.TextProperty, "Text");
+
+				//Create post detail label for the cell
+				Label userLabel = new Label();
+				userLabel.SetBinding(Label.TextProperty, "Username");
+				userLabel.FontSize = 10;
+				//Set the horizontal orientation
+				StackLayout horizontal = new StackLayout();
+				horizontal.Orientation = StackOrientation.Horizontal;
+
+				//the cell for each views
+				StackLayout cellWrapper = new StackLayout();
+
+				//Set cell design
+				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
+				titleLabel.TextColor = Color.FromHex("#f35e20");
+				userLabel.TextColor = Color.FromHex("#503026");
+
+
+				//Costumer cell
+				StackLayout cells = new StackLayout
+				{
+					Padding = new Thickness(20, 15),
+					Orientation = StackOrientation.Horizontal,
+					Children =
+								{
+									new StackLayout
+									{
+										VerticalOptions = LayoutOptions.StartAndExpand,
+										Spacing = 30,
+										Children ={titleLabel,userLabel }
+									}
+								}
+				};
+
+				//add views to the view hierarchy
+				View = cellWrapper;
+				horizontal.Children.Add(cells);
+				cellWrapper.Children.Add(horizontal);
+			}
+		}
+
+
+		//Load
+		public  async void checkLogin()
 		{
             //Load database
 			List<ItemData> list = await App.Database.GetItemsAsync();
+
             //Check the database is not null
 			if (list.Count != 0)
 			{
@@ -62,10 +116,31 @@ namespace myForum
 						Children = { button, label }
 					}
 				};
+                //List view
+                listView = new ListView 
+                {
+					ItemTemplate = new DataTemplate(typeof(PostCell))
+                };
+				//initial the post class
+				Connection connection = new Connection();
+                //Get the result from the server
+                string result = await connection.LoadUserPost(item.Username);
+				//Initial the GetTopic class
+                JsonUserPost jsonPost = new JsonUserPost();
+
+			
+
+                if(result != null){
+					//Set the data from the cloud to the list
+					List<UserPost> userpostlist = jsonPost.ToList(result);
+                    //Add to list view
+                    listView.ItemsSource = userpostlist;
+                }
+
 				//Add to view
 				Content = new StackLayout
 				{
-					Children = { container }
+					Children = { container,listView }
 				};
 
 				//After login
@@ -92,7 +167,7 @@ namespace myForum
 				//Name label for username
 				Label label = new Label
 				{
-					Text = "Username",
+					Text = "Login",
 					TextColor = Color.FromHex("#ff9130"),
 					FontSize = 28,
 					HorizontalOptions = LayoutOptions.Center,

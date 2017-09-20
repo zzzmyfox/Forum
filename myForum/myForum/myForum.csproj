@@ -47,6 +47,8 @@
     <Compile Include="SQLiteDatabase\SqliteDatabase.cs" />
     <Compile Include="ObjectClass\ItemData.cs" />
     <Compile Include="ITextToSpeech.cs" />
+    <Compile Include="ObjectClass\UserPost.cs" />
+    <Compile Include="JsonConverter\JsonUserPost.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

@@ -35,7 +35,7 @@ namespace myForum
 		}
 
 		//Create user
-		public static async Task<string> CreateUser(string username,string json)
+		public static async Task<string> CreateUser(string username, string json)
 		{
 			try
 			{
@@ -78,11 +78,11 @@ namespace myForum
 		}
 
 		//Post the new topic
-		public async void NewPost(string json)
+		public async void NewPost(string topic, string json)
 		{
 			try
 			{
-				string action = HTTPServer + "&action=append&objectid=zelda.topic" + "&data=" + json;
+                string action = HTTPServer + "&action=append&objectid="+ topic + ".topic" + "&data=" + json;
 				Uri uri = new Uri(action);
 				WebRequest request = WebRequest.Create(uri);
 				request.Method = "POST";
@@ -96,12 +96,52 @@ namespace myForum
 			}
 		}
 
-		//Retrieve post from cloud
-		public async Task<string> LoadPost()
+		//User post by per user
+		public async void UserPost(string username, string json)
 		{
 			try
 			{
-				string action = HTTPServer + "&action=load&objectid=zelda.topic";
+				string action = HTTPServer + "&action=append&objectid=" + username + ".post" + "&data=" + json;
+				Uri uri = new Uri(action);
+				WebRequest request = WebRequest.Create(uri);
+				request.Method = "POST";
+
+
+				await ServerResponse(request);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+			}
+		}
+
+		//Retrieve the post by per user from cloud
+		public async Task<string> LoadUserPost(string username)
+		{
+			try
+			{
+                string action = HTTPServer + "&action=load&objectid=" + username + ".post";
+				Uri uri = new Uri(action);
+				WebRequest request = WebRequest.Create(uri);
+				request.Method = "POST";
+
+				return await ServerResponse(request);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				return null;
+			}
+		}
+
+
+
+		//Retrieve post from cloud
+		public async Task<string> LoadPost(string topic)
+		{
+			try
+			{
+				string action = HTTPServer + "&action=load&objectid="+ topic +".topic";
 				Uri uri = new Uri(action);
 				WebRequest request = WebRequest.Create(uri);
 				request.Method = "POST";

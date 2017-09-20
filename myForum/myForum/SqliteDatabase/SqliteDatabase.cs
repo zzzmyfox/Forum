@@ -41,7 +41,7 @@ namespace myForum
             public void DeleteItemAsync()
             {
 			  string deleteTable = "DELETE FROM ItemData;";
-			 database.ExecuteAsync(deleteTable);
+			  database.ExecuteAsync(deleteTable);
             }
         }
     }

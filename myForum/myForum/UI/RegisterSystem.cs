@@ -160,7 +160,7 @@ namespace myForum
 					await App.Database.SaveItemAsync(item);
 
                     //After register
-                    await DisplayAlert("Welcome!" ,"Hello and welcome" + username +" become a new user of us and you are automatically login after register, hope you enjoy it.", "Ok");
+                    await DisplayAlert("Registered" ,"Hello and welcome " + username +" become a new user of us and you are automatically login after register, hope you enjoy it.", "Ok");
                     await Navigation.PushModalAsync(new NaviationTab());
 				}
 			}

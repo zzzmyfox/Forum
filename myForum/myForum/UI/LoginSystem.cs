@@ -1,7 +1,6 @@
-﻿﻿using System;
+﻿using System;
 
 using Xamarin.Forms;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace myForum
@@ -108,8 +107,19 @@ namespace myForum
             };
         }
 
-        //Check login
-        async void LoggedIn(object sender, EventArgs e) 
+
+
+		//public string SHA256Hash(string input)
+		//{
+		//	byte[] sign_byte = Encoding.UTF8.GetBytes(input);
+		//	var sha2 = SHA256.Create();
+		//	sign_byte = sha2.ComputeHash(sign_byte);
+		//	return Encoding.UTF8.GetString(sign_byte);
+		//}
+
+
+		//Check login
+		async void LoggedIn(object sender, EventArgs e) 
         {
             //Get input info
             string username = usernameEntry.Text;
@@ -135,6 +145,9 @@ namespace myForum
 			//Retrieve username list from server
             string userList = await Connection.GetList();
 
+            Debug.WriteLine(userList);
+
+          
 			//Check the username in the database or not
             if (userList.Contains(username + ".user"))
 			{
@@ -156,7 +169,7 @@ namespace myForum
 				else
 				{
 					//Password is correct
-					await DisplayAlert("Logged in", "Username:" + user + ", Password:" + pass, "Ok");
+					await DisplayAlert("Logged in", "Welcome back " + user , "Ok");
 					//Save username and password to local database
 					var item = (ItemData)BindingContext;
 					await App.Database.SaveItemAsync(item);

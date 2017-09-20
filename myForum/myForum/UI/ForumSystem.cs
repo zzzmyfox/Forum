@@ -2,6 +2,8 @@
 
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics;
 
 namespace myForum
 {
@@ -9,11 +11,14 @@ namespace myForum
     {
         //Initialise listview
         ListView listView;
+		//Initial List 
+		List<Post> list = new List<Post>();
+        //Initial sarch bar
+        SearchBar searchBar;
 
         //View Cell customer
 		public class PostCell : ViewCell
 		{
-
 			public PostCell()
 			{
 				// Create post title for cell
@@ -27,7 +32,6 @@ namespace myForum
                 //Set the horizontal orientation
 				StackLayout horizontal = new StackLayout();
 				horizontal.Orientation = StackOrientation.Horizontal;
-		
 
 				//the cell for each views
 				StackLayout cellWrapper = new StackLayout();
@@ -36,23 +40,19 @@ namespace myForum
 				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
 				userLabel.TextColor = Color.FromHex("#503026");
-             
-				//Create boxView
-				BoxView box = new BoxView
-				{
-					WidthRequest = 5
-				};
+          
 
                 //Costumer cell
 				StackLayout cells = new StackLayout
 				{
-					Padding = new Thickness(0, 10),
+					Padding = new Thickness(20, 15),
 					Orientation = StackOrientation.Horizontal,
 					Children =
 								{
 									new StackLayout
 									{
                                         VerticalOptions = LayoutOptions.StartAndExpand,
+                                        Spacing = 30,
 										Children ={titleLabel,userLabel }
 									}
 								}
@@ -60,15 +60,15 @@ namespace myForum
 
 				//add views to the view hierarchy
 				View = cellWrapper;
-                horizontal.Children.Add(box);
                 horizontal.Children.Add(cells);
                 cellWrapper.Children.Add(horizontal);
 			}
 		}
 
-        public ForumSystem()
+        public ForumSystem(string logo)
         {
-            Title = "Forum";
+            //Set the title name
+            Title = logo;
             //Navigation bar item
             ToolbarItem newPost = new ToolbarItem
             {
@@ -79,27 +79,38 @@ namespace myForum
             newPost.Clicked += myPost;
 
 			//Create Search bar on forum page
-			SearchBar searchBar = new SearchBar
+			 searchBar = new SearchBar
 			{
 				Placeholder = "Search"
+			};
+
+            searchBar.BackgroundColor = Color.FromHex("#EFF3F0");
+
+			//Search bar
+			searchBar.TextChanged += (object sender, TextChangedEventArgs e) => {
+				var keyword = searchBar.Text;
+				var suggestion = list.Where(s => s.Text.ToLower().Contains(keyword.ToLower()));
+				listView.ItemsSource = suggestion;
 			};
 
             //Create ListView
             listView = new ListView
             {
                 ItemTemplate = new DataTemplate(typeof(PostCell)),
-                RowHeight = 85
+                RowHeight = 85,
             };
+
 
             //ListView Cell selected
             listView.ItemSelected += ItemSelected;
-         
+
             //Add scrollview makes suer the search bar can scroll up
             ScrollView scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = {searchBar, listView}
+                    Spacing = 0,
+                    Children = {searchBar,listView}
                 }
             };
 
@@ -116,21 +127,23 @@ namespace myForum
 			base.OnAppearing();
             //initial the post class
             Connection connection = new Connection();
+            //Get the value from user click
+            string topics = ((App)App.Current).TopicName;
             //Get the result from the server
-            string result = await connection.LoadPost();
+            string result = await connection.LoadPost(topics);
 			//Initial the GetTopic class
             JsonStringPost jsonPost = new JsonStringPost();
-			//Initial List 
-            List<Post> list = new List<Post>();
-
+	
             //Check whatever the list is exist
             if(result != null){
 				//Set the data from the cloud to the list
                 list = jsonPost.ToList(result);
 				//Add the list to the listview
                 listView.ItemsSource = list;
+
             }else{
-              //Handle the error if the cloud storage is null
+                //Handle the error if the cloud storage is null
+                await DisplayAlert("Oops", "This topic is empty, feel free to discuss at here!", "Ok");
             }  
 		}
 

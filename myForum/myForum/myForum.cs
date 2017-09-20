@@ -11,6 +11,8 @@ namespace myForum
     {
 		//Initial SQLite database
 		static SqliteDatabase database;
+        // Set the topic name
+        public string TopicName { get; set; }
             
         public App()
         {

@@ -1,13 +1,15 @@
 ﻿<Properties StartupConfiguration="{FEF2A3D9-4C7D-4CD5-AC97-85545B3070E3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/UI/ForumSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/UI/ProfileSystem.cs">
     <Files>
-      <File FileName="myForum/UI/ForumSystem.cs" Line="139" Column="4" />
-      <File FileName="myForum/UI/ProfileSystem.cs" Line="23" Column="11" />
+      <File FileName="myForum/WebRequest/Connection.cs" Line="119" Column="41" />
+      <File FileName="myForum/UI/ProfileSystem.cs" Line="136" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Zhe/Desktop/myForum/iOS/Main.cs" relfile="iOS/Main.cs" line="3" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />

@@ -130,19 +130,22 @@ namespace myForum
 				}
 			};
 
-            // make the frame clickable
-			var tapGestureRecognizer = new TapGestureRecognizer();
-            // When click 
-			tapGestureRecognizer.Tapped += OnTapGestureRecognizerTapped;
-            // Click zelda
-            zelda.GestureRecognizers.Add(tapGestureRecognizer);
-            //Click lol
-			lol.GestureRecognizers.Add(tapGestureRecognizer);
-            //Click wow
-            wow.GestureRecognizers.Add(tapGestureRecognizer);
-            //Click others
-            Others.GestureRecognizers.Add(tapGestureRecognizer);
-
+            //The Legend of Zelda topic
+			var zeldaRecognizer = new TapGestureRecognizer();
+			zelda.GestureRecognizers.Add(zeldaRecognizer);
+            zeldaRecognizer.Tapped += OnTapGestureRecognizerTapped;
+            //League of legends topic
+            var lolRecognizer = new TapGestureRecognizer();
+            lol.GestureRecognizers.Add(lolRecognizer);	
+            lolRecognizer.Tapped += lolTapped;
+            //World of warcraft topic
+            var wowRecognizer = new TapGestureRecognizer();
+            wow.GestureRecognizers.Add(wowRecognizer);
+            wowRecognizer.Tapped += wowTapped;
+            //Others topic
+             var othersRecognizer = new TapGestureRecognizer();
+            Others.GestureRecognizers.Add(othersRecognizer);
+            othersRecognizer.Tapped += othersTapped;
             //Add all components to view
 			Content = new StackLayout
 			{
@@ -155,7 +158,33 @@ namespace myForum
 		void OnTapGestureRecognizerTapped(object sender, EventArgs args)
 		{
             // Navigate to forum page
-            Navigation.PushAsync(new ForumSystem());
+            Navigation.PushAsync(new ForumSystem("Zelda"));
+            //Set the value to the forum
+			((App)App.Current).TopicName = "zelda";
+		}
+		//frame clicked 
+		void lolTapped(object sender, EventArgs args)
+		{
+			// Navigate to forum page
+			Navigation.PushAsync(new ForumSystem("LoL"));
+			//Set the value to the forum
+			((App)App.Current).TopicName = "lol";
+		}
+		//frame clicked 
+		void wowTapped(object sender, EventArgs args)
+		{
+			// Navigate to forum page
+			Navigation.PushAsync(new ForumSystem("WoW"));
+			//Set the value to the forum
+			((App)App.Current).TopicName = "wow";
+		}
+		//frame clicked 
+		void othersTapped(object sender, EventArgs args)
+		{
+			// Navigate to forum page
+			Navigation.PushAsync(new ForumSystem("Others"));
+			//Set the value to the forum
+			((App)App.Current).TopicName = "others";
 		}
 	}
 }
