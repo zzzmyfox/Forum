@@ -49,6 +49,8 @@
     <Compile Include="ITextToSpeech.cs" />
     <Compile Include="ObjectClass\UserPost.cs" />
     <Compile Include="JsonConverter\JsonUserPost.cs" />
+    <Compile Include="UI\HistorySystem.cs" />
+    <Compile Include="UI\PasswordSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

@@ -28,11 +28,9 @@ namespace myForum
 				// Create post title for cell
 				Label titleLabel = new Label();
 				titleLabel.SetBinding(Label.TextProperty, "Text");
+                //Set the line break
+                titleLabel.LineBreakMode = LineBreakMode.MiddleTruncation;
 
-				//Create post detail label for the cell
-				Label userLabel = new Label();
-				userLabel.SetBinding(Label.TextProperty, "Username");
-				userLabel.FontSize = 10;
 				//Set the horizontal orientation
 				StackLayout horizontal = new StackLayout();
 				horizontal.Orientation = StackOrientation.Horizontal;
@@ -43,7 +41,6 @@ namespace myForum
 				//Set cell design
 				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
-				userLabel.TextColor = Color.FromHex("#503026");
 
 
 				//Costumer cell
@@ -57,7 +54,7 @@ namespace myForum
 									{
 										VerticalOptions = LayoutOptions.StartAndExpand,
 										Spacing = 30,
-										Children ={titleLabel,userLabel }
+										Children ={titleLabel}
 									}
 								}
 				};
@@ -69,31 +66,29 @@ namespace myForum
 			}
 		}
 
-
 		//Load
 		public  async void checkLogin()
 		{
-            //Load database
+			//Load database
 			List<ItemData> list = await App.Database.GetItemsAsync();
-
             //Check the database is not null
-			if (list.Count != 0)
-			{
-				ItemData item = await App.Database.Load();
+            if (list.Count != 0)
+            {
+                //Load the username from local database
+                ItemData item = await App.Database.Load();
 
 				//User profile image 
-				Button button = new Button
+                Image profileImage = new Image
 				{
-					BorderRadius = 50,
 					HeightRequest = 100,
 					WidthRequest = 100,
-					BackgroundColor = Color.FromHex("#e176fc"),
+					BackgroundColor = Color.FromHex("#fca5eb"),
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Start
 				};
 
 				//Username label
-				Label label = new Label
+				Label usernameLabel = new Label
 				{
 					TextColor = Color.FromHex("#ff9130"),
 					FontSize = 28,
@@ -101,7 +96,18 @@ namespace myForum
 					VerticalOptions = LayoutOptions.Center,
 					FontAttributes = FontAttributes.Bold
 				};
-                label.Text = item.Username;
+				usernameLabel.Text = item.Username;
+
+		       //Set the button let user can change them password
+                Button changeButton = new Button
+                {
+                    Text = "Change Password"
+                };
+
+                //Change password clicked
+                changeButton.Clicked += (sender, e) => {
+                    Navigation.PushModalAsync(new NavigationPage(new PasswordSystem()));
+                };
 
 				// Username and image frame
 				Frame container = new Frame
@@ -113,34 +119,35 @@ namespace myForum
 					Content = new StackLayout
 					{
 						//Append input text to container
-						Children = { button, label }
+						Children = { profileImage, usernameLabel, changeButton }
 					}
 				};
-                //List view
-                listView = new ListView 
-                {
+
+
+				// Head for other topic label
+				Label history = new Label
+				{
+					Text = "Post Hitotry",
+					HorizontalOptions = LayoutOptions.FillAndExpand,
+					VerticalOptions = LayoutOptions.Start,
+					BackgroundColor = Color.FromHex("#a6fe73"),
+					TextColor = Color.White,
+					FontAttributes = FontAttributes.Bold
+				};
+
+				//List view
+				listView = new ListView
+				{
 					ItemTemplate = new DataTemplate(typeof(PostCell))
-                };
-				//initial the post class
-				Connection connection = new Connection();
-                //Get the result from the server
-                string result = await connection.LoadUserPost(item.Username);
-				//Initial the GetTopic class
-                JsonUserPost jsonPost = new JsonUserPost();
-
-			
-
-                if(result != null){
-					//Set the data from the cloud to the list
-					List<UserPost> userpostlist = jsonPost.ToList(result);
-                    //Add to list view
-                    listView.ItemsSource = userpostlist;
-                }
+				};
+                //Click the cell
+                listView.ItemSelected += ItemSelected;
 
 				//Add to view
 				Content = new StackLayout
 				{
-					Children = { container,listView }
+					Spacing = 0,
+					Children = { container, history, listView }
 				};
 
 				//After login
@@ -150,16 +157,16 @@ namespace myForum
 				};
 				ToolbarItems.Add(logOut);
 				logOut.Clicked += logout;
-			}
-			else
-			{
-				// for User image
-				Button button = new Button
+
+            }
+            else
+            {
+				//User profile image 
+				Image profileImage = new Image
 				{
-					BorderRadius = 50,
 					HeightRequest = 100,
 					WidthRequest = 100,
-					BackgroundColor = Color.FromHex("#c8cbca"),
+					BackgroundColor = Color.FromHex("#d8d6d8"),
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Start
 				};
@@ -167,11 +174,10 @@ namespace myForum
 				//Name label for username
 				Label label = new Label
 				{
-					Text = "Login",
-					TextColor = Color.FromHex("#ff9130"),
+					Text = "Start to post within your  account.",
+                    TextColor = Color.Gray,
 					FontSize = 28,
-					HorizontalOptions = LayoutOptions.Center,
-					VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.StartAndExpand,
 					FontAttributes = FontAttributes.Bold
 				};
 
@@ -180,12 +186,13 @@ namespace myForum
 				{
 					BackgroundColor = Color.FromHex("#daf1ee"),
 					HasShadow = false,
+                    HeightRequest = 150,
 
 					//Create view for container
 					Content = new StackLayout
 					{
 						//Append input text to container
-						Children = { button, label }
+						Children = {profileImage, label }
 					}
 				};
 
@@ -194,6 +201,7 @@ namespace myForum
 					Children = { container }
 				};
 
+
 				//item bar button
 				ToolbarItem signIn = new ToolbarItem
 				{
@@ -201,8 +209,39 @@ namespace myForum
 				};
 				ToolbarItems.Add(signIn);
 				signIn.Clicked += showLogin;
-			}
+                
+            }
 		}
+
+        //Load Data from could storage
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+			//Load database
+			List<ItemData> list = await App.Database.GetItemsAsync();
+
+			//Check the database is not null
+			if (list.Count != 0)
+			{
+				//Load the username from local database
+				ItemData item = await App.Database.Load();
+				//initial the post class
+				Connection connection = new Connection();
+				//Get the result from the server
+				string result = await connection.LoadUserPost(item.Username);
+				//Initial the GetTopic class
+				JsonUserPost jsonPost = new JsonUserPost();
+
+				if (result != null)
+				{
+					//Set the data from the cloud to the list
+					List<UserPost> userpostlist = jsonPost.ToList(result);
+					//Add to list view
+					listView.ItemsSource = userpostlist;
+				}
+			}
+        }
 
 		//Logout
 		async void logout(object sender, System.EventArgs e)
@@ -220,9 +259,29 @@ namespace myForum
 		{
 			await Navigation.PushModalAsync(new NavigationPage(new LoginSystem
 			{
-
 				BindingContext = new ItemData()
 			}));
+		}
+
+		//Listview  cell select
+		async void ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			if (e.SelectedItem == null)
+			{
+				return;
+			}
+
+			//Deselect row
+			listView.SelectedItem = null;
+
+			//To the detail page
+			await Navigation.PushAsync(new HistorySystem
+			{
+				//Set the navigation title name from the list view
+                Title = (e.SelectedItem as UserPost).Text,
+				//Set the data to pass to the new page
+				BindingContext = e.SelectedItem as UserPost
+			});
 		}
     }
 }

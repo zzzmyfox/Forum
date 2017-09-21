@@ -12,7 +12,7 @@ namespace myForum
             BackgroundColor = Color.FromHex("#f5e7b2");
 
             //Set up title label
-            var titleLabel = new Label()
+            Label titleLabel = new Label
             {
                 HorizontalOptions = LayoutOptions.Center,
                 FontAttributes = FontAttributes.Bold,
@@ -23,7 +23,7 @@ namespace myForum
 
 
 			//Set up content label
-			var contentLabel = new Label()
+			Label contentLabel = new Label
             {
 
                 TextColor = Color.FromHex("#503026")
@@ -34,16 +34,24 @@ namespace myForum
 
 
             //Set up username label
-            var nameLabel = new Label()
+            Label nameLabel = new Label
             {
                 TextColor = Color.Orange,
                 FontSize = 15,
-                HorizontalOptions = LayoutOptions.Start
+                HorizontalOptions = LayoutOptions.End
    
             };
-
             nameLabel.SetBinding(Label.TextProperty, "Username");
 
+
+            //Set the time label
+            Label timeLabel = new Label
+            {
+				TextColor = Color.Orange,
+				FontSize = 15,
+                HorizontalOptions = LayoutOptions.End
+            };
+            timeLabel.SetBinding(Label.TextProperty, "Time");
 
 
             //Button for the speak
@@ -52,6 +60,9 @@ namespace myForum
 				Text = "Speak",
                 TextColor = Color.White,
                 BackgroundColor = Color.FromHex("#fdbe68"),
+				BorderRadius = 30,
+				HeightRequest = 60,
+				WidthRequest = 60,
                 HorizontalOptions =  LayoutOptions.CenterAndExpand
 			};
 
@@ -81,7 +92,7 @@ namespace myForum
                 Content = new StackLayout
                 {
 					//Append input text to container
-                    Children = { contentLabel, nameLabel }
+                    Children = { contentLabel }
 				}
 			};
 
@@ -94,9 +105,8 @@ namespace myForum
 				//Create view for container
 				Content = new StackLayout
 				{
-
 					//Append input text to container
-					Children = { nameLabel, speakButton }
+					Children = { nameLabel,timeLabel, speakButton }
 				}
 			};
 

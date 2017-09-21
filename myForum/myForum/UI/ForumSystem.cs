@@ -24,15 +24,22 @@ namespace myForum
 				// Create post title for cell
 				Label titleLabel = new Label();
 				titleLabel.SetBinding(Label.TextProperty, "Text");
+                //Set line break
+                titleLabel.LineBreakMode = LineBreakMode.MiddleTruncation;
             
                 //Create post detail label for the cell
 				Label userLabel = new Label();
 				userLabel.SetBinding(Label.TextProperty, "Username");
                 userLabel.FontSize = 10;
+
+                //Create time label for the cell
+                Label timeLabel = new Label();
+                timeLabel.SetBinding(Label.TextProperty, "Time");
+                timeLabel.FontSize = 10;
+
                 //Set the horizontal orientation
 				StackLayout horizontal = new StackLayout();
 				horizontal.Orientation = StackOrientation.Horizontal;
-
 				//the cell for each views
 				StackLayout cellWrapper = new StackLayout();
 
@@ -40,23 +47,31 @@ namespace myForum
 				cellWrapper.BackgroundColor = Color.FromHex("#fcf0cd");
 				titleLabel.TextColor = Color.FromHex("#f35e20");
 				userLabel.TextColor = Color.FromHex("#503026");
-          
 
-                //Costumer cell
+
+                StackLayout userFooter = new StackLayout
+                {
+                        Spacing = 150,
+                        Orientation = StackOrientation.Horizontal,
+                        Children = {userLabel, timeLabel}
+                };
+
+				//Costumer cell
 				StackLayout cells = new StackLayout
 				{
-					Padding = new Thickness(20, 15),
+					Padding = new Thickness(20, 10),
 					Orientation = StackOrientation.Horizontal,
-					Children =
-								{
+					Children ={
 									new StackLayout
 									{
-                                        VerticalOptions = LayoutOptions.StartAndExpand,
                                         Spacing = 30,
-										Children ={titleLabel,userLabel }
+										VerticalOptions = LayoutOptions.StartAndExpand,
+										Children ={titleLabel, userFooter }
 									}
 								}
-                };
+				};
+
+
 
 				//add views to the view hierarchy
 				View = cellWrapper;
@@ -100,7 +115,6 @@ namespace myForum
                 RowHeight = 85,
             };
 
-
             //ListView Cell selected
             listView.ItemSelected += ItemSelected;
 
@@ -140,11 +154,7 @@ namespace myForum
                 list = jsonPost.ToList(result);
 				//Add the list to the listview
                 listView.ItemsSource = list;
-
-            }else{
-                //Handle the error if the cloud storage is null
-                await DisplayAlert("Oops", "This topic is empty, feel free to discuss at here!", "Ok");
-            }  
+            }
 		}
 
         //Post bar item clicked
@@ -177,9 +187,6 @@ namespace myForum
 
              //Deselect row
             listView.SelectedItem = null;
-
-			//Show page title
-            //((App)App.Current).IndexID = (e.SelectedItem as ItemData).ID;
 
             //To the detail page
             await Navigation.PushAsync(new Details

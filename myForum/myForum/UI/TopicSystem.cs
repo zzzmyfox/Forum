@@ -35,7 +35,6 @@ namespace myForum
 				FontAttributes = FontAttributes.Bold
             };
 
-
             // Zelda button
 			var zelda = new Frame
             {
@@ -49,7 +48,6 @@ namespace myForum
                     FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
 				}
 			};
-
 
             //LOL button
             var lol = new Frame

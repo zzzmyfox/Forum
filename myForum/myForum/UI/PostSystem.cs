@@ -55,6 +55,8 @@ namespace myForum
         {
              string postTitle = titleEntry.Text;
              string postContent = contentEditor.Text;
+		   	//Set the current time
+             string now = DateTime.Now.ToLocalTime().ToString();
              //Initial connection
              Connection connection = new Connection();
              //Initial JsonStringPost
@@ -72,9 +74,9 @@ namespace myForum
             //return user
             string user = await connection.LoadUserPost(postUser);
              //The user post data
-            Post postData = new Post(postTitle, postContent, postUser);
+            Post postData = new Post(postTitle, postContent, postUser,now);
             //User post history
-            UserPost userPost = new UserPost(topics, postTitle, postContent, postUser);
+            UserPost userPost = new UserPost(topics, postTitle, postContent, postUser,now);
             //Check the title is not empty
             if(string.IsNullOrWhiteSpace(postTitle)){
                 //Alert for the empty title

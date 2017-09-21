@@ -145,9 +145,6 @@ namespace myForum
 			//Retrieve username list from server
             string userList = await Connection.GetList();
 
-            Debug.WriteLine(userList);
-
-          
 			//Check the username in the database or not
             if (userList.Contains(username + ".user"))
 			{

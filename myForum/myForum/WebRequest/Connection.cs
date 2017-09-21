@@ -134,8 +134,6 @@ namespace myForum
 			}
 		}
 
-
-
 		//Retrieve post from cloud
 		public async Task<string> LoadPost(string topic)
 		{
