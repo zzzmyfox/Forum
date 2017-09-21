@@ -186,8 +186,9 @@ namespace myForum
              //Deselect row
             listView.SelectedItem = null;
 
+           
             //To the detail page
-            await Navigation.PushAsync(new Details
+            await Navigation.PushAsync(new Details((e.SelectedItem as Post).Text.GetHashCode())
             {
                 //Set the navigation title name from the list view
                 Title = (e.SelectedItem as Post).Text,

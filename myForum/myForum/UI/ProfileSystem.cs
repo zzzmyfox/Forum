@@ -143,11 +143,22 @@ namespace myForum
                 //Click the cell
                 listView.ItemSelected += ItemSelected;
 
+
+				//Add scroll view
+				ScrollView scrollView = new ScrollView
+				{
+					Content = new StackLayout
+					{
+						Spacing = 0,
+						Children = { container, history, listView}
+					}
+				};
+
 				//Add to view
 				Content = new StackLayout
 				{
 					Spacing = 0,
-					Children = { container, history, listView }
+					Children = { scrollView }
 				};
 
 				//After login

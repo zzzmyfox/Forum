@@ -13,6 +13,8 @@ namespace myForum
 		static SqliteDatabase database;
         // Set the topic name
         public string TopicName { get; set; }
+        //Set the id
+        public int IndexId { get; set; }
             
         public App()
         {

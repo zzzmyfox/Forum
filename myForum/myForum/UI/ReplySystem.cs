@@ -1,6 +1,8 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace myForum
 {
@@ -9,7 +11,7 @@ namespace myForum
         //Initial reply editor
         Editor replyEditor;
 
-        public ReplySystem()
+        public ReplySystem(int id)
         {
             //Set the title
             Title = "Reply";
@@ -50,23 +52,52 @@ namespace myForum
 				//Add view to content page
 				Children = { replyEditor , replyButton }
 			};
+
+			//Reply button clicked
+			async void reply(object sender, EventArgs e)
+			{
+				//Get user input
+				string replyInput = replyEditor.Text;
+				//Set the current time
+				string now = DateTime.Now.ToLocalTime().ToString();
+				//Load user loggin info from local database
+				ItemData item = await App.Database.Load();
+				//Set the username from data
+				var replytUser = item.Username;
+				//Initial connection
+				Connection connection = new Connection();
+				//return result
+                string result = await connection.LoadReply(id);
+                //Set the reply message
+                Reply userReply = new Reply (replyInput, replytUser, now);
+                //Set the Json converter
+                JsonStringReply jsonReply = new JsonStringReply();
+
+				//Check not null
+				if (string.IsNullOrWhiteSpace(replyInput))
+				{
+					await DisplayAlert("Error", "Reply text field can not be empty.", "Ok");
+				}
+				else
+				{
+                    if(result != null)
+                    {
+                        string convert = jsonReply.ToJsonString(userReply);
+                        await connection.SendReply(id,convert);
+                    }
+                    else
+                    {
+                        List<Reply> list = new List<Reply>();
+                        list.Add(userReply);
+                        string convertList = jsonReply.ListToJson(list);
+                        await connection.SendReply(id,convertList);
+                    }
+					await Navigation.PopModalAsync();
+				}
+			}
+
         }
-        //Reply button clicked
-        async void reply(object sender, EventArgs e)
-        {
-            //Get user input
-            string reply = replyEditor.Text;
-            //Check not null
-            if(string.IsNullOrWhiteSpace(reply))
-            {
-                await DisplayAlert("Error", "Reply text field can not be null.", "Ok");
-            }
-            else
-            {
-                
-                await Navigation.PopModalAsync();
-            }
-        }
+
     }
 }
 

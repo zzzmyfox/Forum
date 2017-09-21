@@ -52,6 +52,8 @@
     <Compile Include="UI\HistorySystem.cs" />
     <Compile Include="UI\PasswordSystem.cs" />
     <Compile Include="UI\ReplySystem.cs" />
+    <Compile Include="ObjectClass\Reply.cs" />
+    <Compile Include="JsonConverter\JsonStringReply.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

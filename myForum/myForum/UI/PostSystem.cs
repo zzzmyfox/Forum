@@ -124,9 +124,6 @@ namespace myForum
 				}
 
 				await Navigation.PopAsync();
-
-
-
             }
 
            

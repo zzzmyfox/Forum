@@ -114,6 +114,45 @@ namespace myForum
 				Debug.WriteLine(e);
 			}
 		}
+		//User reply
+		public  async Task<string> LoadReply(int id)
+		{
+			try
+			{
+				string action = HTTPServer + "&action=load&objectid=" + id + ".reply";
+				Uri uri = new Uri(action);
+				WebRequest request = WebRequest.Create(uri);
+				request.Method = "POST";
+
+
+				return await ServerResponse(request);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				return null;
+			}
+		}
+
+		//User reply
+        public async Task<string> SendReply(int id, string reply)
+		{
+			try
+			{
+				string action = HTTPServer + "&action=append&objectid=" + id + ".reply" + "&data=" + reply;
+				Uri uri = new Uri(action);
+				WebRequest request = WebRequest.Create(uri);
+				request.Method = "POST";
+
+
+				return await ServerResponse(request);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+				return null;
+			}
+		}
 
 		//Retrieve the post by per user from cloud
 		public async Task<string> LoadUserPost(string username)
