@@ -11,6 +11,17 @@ namespace myForum
             //Set up background color 
             BackgroundColor = Color.FromHex("#f5e7b2");
 
+
+            ToolbarItem toolbarItem = new ToolbarItem
+            {
+                Text = "Reply"
+            };
+            ToolbarItems.Add(toolbarItem);
+
+            toolbarItem.Clicked += (object sender, EventArgs e) => {
+                Navigation.PushModalAsync(new NavigationPage(new ReplySystem()));
+            };
+
             //Set up title label
             Label titleLabel = new Label
             {
@@ -66,6 +77,13 @@ namespace myForum
                 HorizontalOptions =  LayoutOptions.CenterAndExpand
 			};
 
+			//Speak button clicked
+			speakButton.Clicked += (sender, e) =>
+			{
+				var item = (Post)BindingContext;
+				DependencyService.Get<ITextToSpeech>().Speak(item.Text + " " + item.Description);
+			};
+
 			//Create frame for hot topics
 			Frame containerTitle = new Frame
 			{
@@ -96,6 +114,7 @@ namespace myForum
 				}
 			};
 
+
 			//Create frame for hot topics
 			Frame containerName = new Frame
 			{
@@ -110,19 +129,23 @@ namespace myForum
 				}
 			};
 
-
-            //Speak button clicked
-			speakButton.Clicked += (sender, e) =>
+      
+			// Head for other topic label
+			Label comments = new Label
 			{
-                var item = (Post)BindingContext;
-				DependencyService.Get<ITextToSpeech>().Speak(item.Text + " " + item.Description);
+				Text = "Comments",
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				VerticalOptions = LayoutOptions.Start,
+				BackgroundColor = Color.FromHex("#50bffe"),
+				TextColor = Color.White,
+				FontAttributes = FontAttributes.Bold
 			};
 
             //Add to view
 			Content = new StackLayout
 			{
                 Spacing = 0,
-                Children ={ containerTitle, containerContent,containerName}
+                Children ={ containerTitle, containerContent,containerName, comments }
 			};
 		}
 	}

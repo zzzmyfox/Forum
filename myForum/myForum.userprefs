@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{FEF2A3D9-4C7D-4CD5-AC97-85545B3070E3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/UI/Details.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="myForum/UI/ProfileSystem.cs">
     <Files>
-      <File FileName="myForum/UI/Details.cs" Line="109" Column="39" />
+      <File FileName="myForum/UI/Details.cs" Line="14" Column="1" />
+      <File FileName="myForum/UI/ProfileSystem.cs" Line="256" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

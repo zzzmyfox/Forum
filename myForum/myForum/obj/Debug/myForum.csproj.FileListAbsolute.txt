@@ -19,7 +19,6 @@
 /Users/Zhe/Desktop/myForum/myForum/bin/Debug/Xamarin.Forms.Xaml.pdb
 /Users/Zhe/Desktop/myForum/myForum/bin/Debug/Xamarin.Forms.Xaml.dll.mdb
 /Users/Zhe/Desktop/myForum/myForum/bin/Debug/Xamarin.Forms.Xaml.xml
-/Users/Zhe/Desktop/myForum/myForum/obj/Debug/myForum.csprojResolveAssemblyReference.cache
 /Users/Zhe/Desktop/myForum/myForum/obj/Debug/myForum.csproj.CoreCompileInputs.cache
 /Users/Zhe/Desktop/myForum/myForum/obj/Debug/myForum.dll
 /Users/Zhe/Desktop/myForum/myForum/obj/Debug/myForum.pdb

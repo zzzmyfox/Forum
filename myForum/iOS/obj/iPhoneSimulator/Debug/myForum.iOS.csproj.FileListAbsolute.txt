@@ -64,9 +64,9 @@
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/profile@2x.png
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/topic.png
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/topic@2x.png
+/Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/launch.png
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.csprojResolveAssemblyReference.cache
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.csproj.CoreCompileInputs.cache
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.exe
 /Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/myForum.iOS.pdb
-/Users/Zhe/Desktop/myForum/iOS/obj/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/optimized/launch.png

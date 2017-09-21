@@ -71,8 +71,6 @@ namespace myForum
 								}
 				};
 
-
-
 				//add views to the view hierarchy
 				View = cellWrapper;
                 horizontal.Children.Add(cells);
